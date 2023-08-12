@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(qt_mingw)
+project(terrain_rendering)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -14,8 +14,8 @@ find_package(Qt5 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(qt_mingw main.cpp mainwindow.cpp mainwindow.h mainwindow.ui)
-target_link_libraries(qt_mingw
+add_executable(terrain_rendering main.cpp mainwindow.cpp mainwindow.h mainwindow.ui)
+target_link_libraries(terrain_rendering
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets
