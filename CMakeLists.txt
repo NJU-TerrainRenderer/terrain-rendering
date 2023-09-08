@@ -7,6 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_PREFIX_PATH "D:/Qt/5.15.0/mingw81_64")
+set(Eigen3_DIR "E:/reliances/cmake/Eigen3.4.0/share/eigen3/cmake")
 
 find_package(Qt5 COMPONENTS
         Core
@@ -14,7 +15,10 @@ find_package(Qt5 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(terrain_rendering main.cpp mainwindow.cpp mainwindow.h mainwindow.ui)
+find_package(Eigen3 REQUIRED)
+INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
+
+add_executable(terrain_rendering src/main.cpp src/ui/mainwindow.cpp src/scene/Scene.cpp src/scene/Scene.h src/scene/element/Element.cpp src/scene/element/Element.h src/scene/Camera.cpp src/scene/Camera.h src/scene/common/Movable.cpp src/scene/common/Movable.h src/scene/element/Triangle.cpp src/scene/element/Triangle.h)
 target_link_libraries(terrain_rendering
         Qt5::Core
         Qt5::Gui
