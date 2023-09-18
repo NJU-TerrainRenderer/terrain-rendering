@@ -49,9 +49,6 @@ if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
             set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
         endif ()
     endif ()
-    message(
-        "QT_INSTALL_PATH ${QT_INSTALL_PATH}"
-    )
     if (EXISTS "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll")
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E make_directory
