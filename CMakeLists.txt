@@ -6,8 +6,14 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/msvc2019_64")
-set(Eigen3_DIR "D:/ComputerGraphic/terrain-rendering-main/Eigen")
+set(CMAKE_PREFIX_PATH ENV{QT_PATH})
+set(Eigen3_DIR ENV{EIGEN_PATH})
+
+if(DEFINED ENV{QT_PATH})
+    message("QT_PATH $ENV{QT_PATH}")
+else()
+    message("DO NOT DEFINED QT_PATH")
+endif()
 
 find_package(Qt5 COMPONENTS
         Core
@@ -18,7 +24,18 @@ find_package(Qt5 COMPONENTS
 find_package(Eigen3 REQUIRED)
 INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
 
-add_executable(terrain_rendering src/main.cpp src/ui/mainwindow.cpp src/scene/Scene.cpp src/scene/Scene.h src/scene/element/Element.cpp src/scene/element/Element.h src/scene/Camera.cpp src/scene/Camera.h src/scene/common/Movable.cpp src/scene/common/Movable.h src/scene/element/Triangle.cpp src/scene/element/Triangle.h)
+file(GLOB ALLFILE 
+    "src/*.cpp" "src/*.h"
+    "src/ui/*.cpp" "src/ui/*.h"
+    "src/scene/element/*.cpp" "src/scene/element/*.h" "src/scene/accelerator/*.cpp" "src/scene/accelerator/*.h"
+    "src/scene/*.cpp" "src/scene/*.h"
+    "src/scene/commom/*.cpp" "src/scene/common/*.h"
+)
+
+add_executable(terrain_rendering
+    ${ALLFILE}
+)
+
 target_link_libraries(terrain_rendering
         Qt5::Core
         Qt5::Gui
