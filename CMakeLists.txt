@@ -9,12 +9,6 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_PREFIX_PATH ENV{QT_PATH})
 set(Eigen3_DIR ENV{EIGEN_PATH})
 
-if(DEFINED ENV{QT_PATH})
-    message("QT_PATH $ENV{QT_PATH}")
-else()
-    message("DO NOT DEFINED QT_PATH")
-endif()
-
 find_package(Qt5 COMPONENTS
         Core
         Gui
