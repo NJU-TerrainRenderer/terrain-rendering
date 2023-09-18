@@ -10,7 +10,7 @@ void LOD::onCameraUpdate(std::shared_ptr<Camera>){
 
 std::shared_ptr<MeshData> LOD::simplify() {
     //TODO
-    return std::make_shared<MeshData>(NULL);
+    return NULL;
 }
 void LOD::build(std::shared_ptr<Camera>) {
     //TODO

@@ -25,6 +25,6 @@ public:
 	virtual void build(std::shared_ptr<Camera>) = 0; //建立or更新数据结构。
 	virtual std::shared_ptr<MeshData> simplify() = 0;  //利用数据结构对rawMesh化简。
 	std::shared_ptr<MeshData> getMesh(){
-		return simplifiedMesh;
+		return NULL;
 	}
 };

@@ -8,6 +8,7 @@
 #include <Eigen/Core>
 
 class Movable {
+public:
     Eigen::Vector3f position;
     Eigen::Vector3f direction;
 };

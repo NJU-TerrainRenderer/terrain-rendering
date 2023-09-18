@@ -9,7 +9,7 @@ void Plain::onCameraUpdate(std::shared_ptr<Camera>){
 }
 
 std::shared_ptr<MeshData> Plain::simplify() {
-    return rawMesh;
+    return NULL;
 }
 void Plain::build(std::shared_ptr<Camera>) {
     return;

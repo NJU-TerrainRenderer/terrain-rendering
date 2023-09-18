@@ -15,7 +15,7 @@ public:
     Triangle() = default;
     Triangle(const Eigen::Vector3f& point1, const Eigen::Vector3f& point2, const Eigen::Vector3f& point3);
 
-    std::shared_ptr<std::vector<Triangle>> getMesh() override;
+    virtual std::shared_ptr<std::vector<Triangle>> getMesh() override;
 };
 
 

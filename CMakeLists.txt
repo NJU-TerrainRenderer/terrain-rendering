@@ -6,8 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH ENV{QT_PATH})
-set(Eigen3_DIR ENV{EIGEN_PATH})
+set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
+set(Eigen3_DIR $ENV{EIGEN_PATH})
 
 find_package(Qt5 COMPONENTS
         Core
@@ -24,6 +24,7 @@ file(GLOB ALLFILE
     "src/scene/element/*.cpp" "src/scene/element/*.h" "src/scene/accelerator/*.cpp" "src/scene/accelerator/*.h"
     "src/scene/*.cpp" "src/scene/*.h"
     "src/scene/commom/*.cpp" "src/scene/common/*.h"
+    "src/scene/signal/*.cpp" "src/scene/signal/*.h"
 )
 
 add_executable(terrain_rendering
@@ -48,6 +49,9 @@ if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
             set(QT_INSTALL_PATH "${QT_INSTALL_PATH}/..")
         endif ()
     endif ()
+    message(
+        "QT_INSTALL_PATH ${QT_INSTALL_PATH}"
+    )
     if (EXISTS "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll")
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E make_directory
