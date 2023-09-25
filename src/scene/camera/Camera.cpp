@@ -4,6 +4,6 @@
 
 #include "Camera.h"
 
-void Camera::registerListener(const std::shared_ptr<CameraListener>& listener) {
+void Camera::registerListener(const std::shared_ptr<CameraListener> &listener) {
     listeners.push_back(listener);
 }

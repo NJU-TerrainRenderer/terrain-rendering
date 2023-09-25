@@ -17,7 +17,7 @@ private:
 public:
     void setFov(float newFov) { fov = newFov; }
 
-    void registerListener(const std::shared_ptr<CameraListener>& listener);
+    void registerListener(const std::shared_ptr<CameraListener> &listener);
 };
 
 

@@ -8,9 +8,10 @@
 #include <Eigen/Core>
 #include <memory>
 #include "../common/Movable.h"
+
 class Triangle;
 
-class Element :  Movable{
+class Element : public Movable {
 public:
     virtual std::shared_ptr<std::vector<Triangle>> getMesh() = 0;
 };

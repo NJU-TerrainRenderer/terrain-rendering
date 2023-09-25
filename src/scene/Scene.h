@@ -6,7 +6,7 @@
 #define TERRAIN_RENDERING_SCENE_H
 
 #include "element/Element.h"
-#include "Camera.h"
+#include "camera/Camera.h"
 
 #include <vector>
 #include <memory>
@@ -18,7 +18,7 @@ private:
 public:
     std::shared_ptr<Camera> getCamera() { return camera; }
 
-    void addElement(const std::shared_ptr<Element>& element) { elements.push_back(element); }
+    void addElement(const std::shared_ptr<Element> &element) { elements.push_back(element); }
 };
 
 

@@ -9,6 +9,7 @@
 
 class Movable {
 public:
+private:
     Eigen::Vector4f position;
     Eigen::Vector4f direction;
 };

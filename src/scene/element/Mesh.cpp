@@ -1,8 +1,8 @@
 #include"Mesh.h"
 
 MeshData::MeshData() {
-	//TODO
-	return;
+    //TODO
+    return;
 }
 /*
 MeshData::MeshData(std::vector<Triangle>triangles) {

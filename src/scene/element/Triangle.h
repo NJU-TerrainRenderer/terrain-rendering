@@ -8,14 +8,14 @@
 
 #include "Element.h"
 
-class Triangle : Element {
+class Triangle : public Element {
 private:
     std::vector<Eigen::Vector4f> points;
 public:
     Triangle() = default;
     Triangle(const Eigen::Vector4f& point1, const Eigen::Vector4f& point2, const Eigen::Vector4f& point3);
 
-    virtual std::shared_ptr<std::vector<Triangle>> getMesh() override;
+    std::shared_ptr<std::vector<Triangle>> getMesh() override;
 };
 
 
