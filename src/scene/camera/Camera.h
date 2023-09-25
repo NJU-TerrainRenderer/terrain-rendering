@@ -10,7 +10,7 @@
 #include "../common/Movable.h"
 #include "CameraListener.h"
 
-class Camera : Movable {
+class Camera : public Movable {
 private:
     float fov = 0;
     std::vector<std::shared_ptr<CameraListener>> listeners;
