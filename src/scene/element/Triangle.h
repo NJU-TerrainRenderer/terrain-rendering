@@ -10,10 +10,10 @@
 
 class Triangle : Element {
 private:
-    std::vector<Eigen::Vector3f> points;
+    std::vector<Eigen::Vector4f> points;
 public:
     Triangle() = default;
-    Triangle(const Eigen::Vector3f& point1, const Eigen::Vector3f& point2, const Eigen::Vector3f& point3);
+    Triangle(const Eigen::Vector4f& point1, const Eigen::Vector4f& point2, const Eigen::Vector4f& point3);
 
     virtual std::shared_ptr<std::vector<Triangle>> getMesh() override;
 };
