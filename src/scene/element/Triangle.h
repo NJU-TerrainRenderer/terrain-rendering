@@ -15,6 +15,8 @@ public:
     Triangle() = default;
     Triangle(const Eigen::Vector4f& point1, const Eigen::Vector4f& point2, const Eigen::Vector4f& point3);
 
+    void affineTransform(Eigen::Matrix4f transformation) override;
+
     std::shared_ptr<std::vector<Triangle>> getMesh() override;
 };
 

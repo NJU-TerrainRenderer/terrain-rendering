@@ -15,3 +15,10 @@ std::shared_ptr<std::vector<Triangle>> Triangle::getMesh() {
     mesh->push_back(*this);
     return mesh;
 }
+
+void Triangle::affineTransform(Eigen::Matrix4f transformation) {
+    Movable::affineTransform(transformation);
+    for (int i = 0; i < 3; i++) {
+        points[0] = transformation * points[0];
+    }
+}

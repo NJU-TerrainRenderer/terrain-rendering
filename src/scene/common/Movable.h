@@ -9,7 +9,8 @@
 
 class Movable {
 public:
-private:
+    virtual void affineTransform(Eigen::Matrix4f transformation);
+protected:
     Eigen::Vector4f position;
     Eigen::Vector4f direction;
 };
