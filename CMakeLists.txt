@@ -23,7 +23,7 @@ file(GLOB ALLFILE
     "src/ui/*.cpp" "src/ui/*.h"
     "src/scene/element/*.cpp" "src/scene/element/*.h" "src/scene/accelerator/*.cpp" "src/scene/accelerator/*.h"
     "src/scene/*.cpp" "src/scene/*.h"
-    "src/scene/commom/*.cpp" "src/scene/common/*.h"
+    "src/scene/common/*.cpp" "src/scene/common/*.h"
     "src/scene/camera/*.cpp" "src/scene/camera/*.h"
 )
 
