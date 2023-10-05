@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QOpenGLWidget" name="openGLWidget">
+  <widget class="OpenGLDisplayWidget" name="displayWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -34,6 +34,13 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>OpenGLDisplayWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>ui/OpenGLDisplayWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

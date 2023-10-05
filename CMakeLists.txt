@@ -17,25 +17,23 @@ find_package(Qt5 COMPONENTS
 
 find_package(Eigen3 REQUIRED)
 INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(src)
 
-file(GLOB ALLFILE 
-    "src/*.cpp" "src/*.h"
-    "src/ui/*.cpp" "src/ui/*.h"
-    "src/scene/element/*.cpp" "src/scene/element/*.h" "src/scene/accelerator/*.cpp" "src/scene/accelerator/*.h"
-    "src/scene/*.cpp" "src/scene/*.h"
-    "src/scene/common/*.cpp" "src/scene/common/*.h"
-    "src/scene/camera/*.cpp" "src/scene/camera/*.h"
-)
+file(GLOB ALLFILE
+        "src/*.cpp" "src/*.h"
+        "src/ui/*.cpp" "src/ui/*.h"
+        "src/scene/element/*.cpp" "src/scene/element/*.h" "src/scene/accelerator/*.cpp" "src/scene/accelerator/*.h"
+        "src/scene/*.cpp" "src/scene/*.h"
+        "src/scene/common/*.cpp" "src/scene/common/*.h"
+        "src/scene/camera/*.cpp" "src/scene/camera/*.h")
 
 add_executable(terrain_rendering
-    ${ALLFILE}
-)
+        ${ALLFILE})
 
 target_link_libraries(terrain_rendering
         Qt5::Core
         Qt5::Gui
-        Qt5::Widgets
-        )
+        Qt5::Widgets)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

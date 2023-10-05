@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <memory>
-#include "Camera.h"
 
 class Camera;
 
