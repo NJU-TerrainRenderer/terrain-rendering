@@ -7,7 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
-set(Eigen3_DIR $ENV{EIGEN_PATH})
+set(Eigen3_DIR "./dependencies/Eigen3.4.0/share/eigen3/cmake")
 
 find_package(Qt5 COMPONENTS
         Core
