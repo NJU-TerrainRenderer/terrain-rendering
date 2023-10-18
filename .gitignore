@@ -57,5 +57,6 @@ compile_commands.json
 # dxy's workspace
 build/
 .vs/
+.vscode/
 Eigen/
 .git/
