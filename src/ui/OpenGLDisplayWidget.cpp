@@ -5,7 +5,8 @@
 #include "OpenGLDisplayWidget.h"
 
 void OpenGLDisplayWidget::initializeGL() {
-    QOpenGLWidget::initializeGL();
+//    QOpenGLWidget::initializeGL();
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void OpenGLDisplayWidget::resizeGL(int w, int h) {
