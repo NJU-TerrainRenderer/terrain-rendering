@@ -3,3 +3,7 @@
 //
 
 #include "Scene.h"
+
+Scene::Scene(Json json) {
+
+}
