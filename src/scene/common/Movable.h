@@ -10,7 +10,11 @@
 class Movable {
 public:
     // 默认仿射变换接口，默认实现仅会作用于锚点和方向
-    virtual void affineTransform(Eigen::Matrix4f transformation);
+    virtual void affineTransform(const Eigen::Matrix4f &transformation);
+
+    virtual void moveTo(Eigen::Vector4f &newPosition);
+
+//    virtual void pointAt(Eigen::Vector4f &newDirection);
 
 protected:
     Movable() = default;

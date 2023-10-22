@@ -20,7 +20,7 @@ std::shared_ptr<std::vector<Triangle>> Triangle::getMesh() {
     return mesh;
 }
 
-void Triangle::affineTransform(Eigen::Matrix4f transformation) {
+void Triangle::affineTransform(const Eigen::Matrix4f &transformation) {
     Movable::affineTransform(transformation);
     for (int i = 0; i < 3; i++) {
         vertexDisplacements[0] = transformation * vertexDisplacements[0];
