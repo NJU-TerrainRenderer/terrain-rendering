@@ -7,7 +7,7 @@
 
 #include <Eigen/Core>
 
-#include "../common/Movable.h"
+#include "scene/common/Movable.h"
 #include "CameraListener.h"
 
 class Camera : public Movable {

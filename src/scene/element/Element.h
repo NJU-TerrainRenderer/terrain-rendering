@@ -7,7 +7,7 @@
 
 #include <Eigen/Core>
 #include <memory>
-#include "../common/Movable.h"
+#include "scene/common/Movable.h"
 
 class Triangle;
 

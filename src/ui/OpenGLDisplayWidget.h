@@ -7,7 +7,7 @@
 
 #include <QOpenGLWidget>
 #include <utility>
-#include "../scene/camera/CameraListener.h"
+#include "scene/camera/CameraListener.h"
 #include "scene/Scene.h"
 
 class OpenGLDisplayWidget : public QOpenGLWidget, public CameraListener {
