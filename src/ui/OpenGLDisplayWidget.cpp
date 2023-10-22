@@ -17,11 +17,11 @@ void OpenGLDisplayWidget::paintGL() {
 }
 
 void OpenGLDisplayWidget::onCameraCreate(std::shared_ptr<Camera> camera) {
-    paintGL();
+    update();
 }
 
 void OpenGLDisplayWidget::onCameraUpdate(std::shared_ptr<Camera> camera) {
-    paintGL();
+    update();
 }
 
 OpenGLDisplayWidget::OpenGLDisplayWidget(QWidget *parent) : QOpenGLWidget(parent) {
