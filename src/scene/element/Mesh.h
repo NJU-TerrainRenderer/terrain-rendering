@@ -16,4 +16,6 @@ public:
         Triangle t;
         return t.getMesh();
     };
+
+    void deserializeFrom(Json json) override;
 };

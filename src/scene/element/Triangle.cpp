@@ -26,3 +26,7 @@ void Triangle::affineTransform(const Eigen::Matrix4f &transformation) {
         vertexDisplacements[0] = transformation * vertexDisplacements[0];
     }
 }
+
+void Triangle::deserializeFrom(Json json) {
+
+}

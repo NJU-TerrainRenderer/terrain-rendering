@@ -9,6 +9,7 @@
 
 #include "scene/common/Movable.h"
 #include "CameraListener.h"
+#include "common/json.h"
 
 class Camera : public Movable {
 protected:
@@ -23,6 +24,8 @@ public:
     Camera(Eigen::Vector4f &position, Eigen::Vector4f &direction, float fov)
             : Movable(position, direction),
               fov(fov) {}
+
+    static std::shared_ptr<Camera> deserialize(Json json);
 
     void setWidth(float newWidth) { width = newWidth; }
 

@@ -1,0 +1,11 @@
+{
+    "name": "test",
+    "elements": [
+        {
+            "type": "triangle"
+        },
+        {
+            "type": "mesh"
+        }
+    ]
+}

@@ -21,6 +21,8 @@ public:
     void affineTransform(const Eigen::Matrix4f &transformation) override;
 
     std::shared_ptr<std::vector<Triangle>> getMesh() override;
+
+    void deserializeFrom(Json json) override;
 };
 
 

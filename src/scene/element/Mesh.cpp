@@ -4,6 +4,10 @@ MeshData::MeshData() {
     //TODO
     return;
 }
+
+void MeshData::deserializeFrom(Json json) {
+
+}
 /*
 MeshData::MeshData(std::vector<Triangle>triangles) {
 	//TODO

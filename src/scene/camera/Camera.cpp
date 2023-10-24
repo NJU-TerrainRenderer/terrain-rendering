@@ -11,3 +11,7 @@ void Camera::registerListener(const std::shared_ptr<CameraListener> &listener) {
 void Camera::move(float distance) {
     position += direction * distance;
 }
+
+std::shared_ptr<Camera> Camera::deserialize(Json json) {
+    return std::shared_ptr<Camera>();
+}

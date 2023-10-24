@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
             return;
         }
 
-        auto scene = std::make_shared<Scene>(sceneJson);
+        auto scene = Scene::deserialize(sceneJson);
         ui->displayWidget->setScene(scene);
     });
 }
