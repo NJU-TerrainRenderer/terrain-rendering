@@ -23,12 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
         Json sceneJson;
         try {
             sceneJson = Json::parse(std::ifstream(sceneFileString.toStdString()));
-        } catch (nlohmann::json_abi_v3_11_2::detail::parse_error){
+        } catch (nlohmann::json_abi_v3_11_2::detail::parse_error) {
             return;
         }
 
         auto scene = Scene::deserialize(sceneJson);
         ui->displayWidget->setScene(scene);
+        ui->currSceneName->setText(QString::fromStdString(scene->getName()));
     });
 }
 

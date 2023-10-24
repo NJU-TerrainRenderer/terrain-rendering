@@ -28,5 +28,12 @@ void Triangle::affineTransform(const Eigen::Matrix4f &transformation) {
 }
 
 void Triangle::deserializeFrom(Json json) {
+    position << json["points"][0][0], json["points"][0][1], json["points"][0][2], 1;
 
+    Eigen::Vector4f point;
+    for (auto &pointJson: json["points"]) {
+        point << pointJson[0], pointJson[1], pointJson[2], 1;
+        vertexDisplacements.emplace_back(point - position);
+    }
+    direction << vertexDisplacements[1].head<3>().cross(vertexDisplacements[2].head<3>()).normalized(), 0;
 }

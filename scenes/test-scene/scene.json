@@ -2,10 +2,12 @@
     "name": "test",
     "elements": [
         {
-            "type": "triangle"
-        },
-        {
-            "type": "mesh"
+            "type": "triangle",
+            "points": [
+                [0,0,0],
+                [0,2,2],
+                [0,0,4]
+            ]
         }
     ]
 }

@@ -3,7 +3,6 @@
 //
 
 #include "Scene.h"
-#include <iostream>
 
 std::shared_ptr<Scene> Scene::deserialize(Json json) {
     auto scene = std::make_shared<Scene>();
