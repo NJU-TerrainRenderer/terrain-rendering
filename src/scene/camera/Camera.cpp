@@ -2,6 +2,7 @@
 // Created by gbc on 2023/9/6.
 //
 
+#include <iostream>
 #include "Camera.h"
 
 Camera::Camera(Eigen::Vector4f &position, Eigen::Vector4f &direction, float fov)
@@ -44,18 +45,18 @@ void Camera::rotatePrecession(float radius) {
 
 void Camera::rotateNutation(float radius) {
     float r = sqrtf(direction[0] * direction[0] + direction[1] * direction[1]);
-    float currNutationRadius = atanf(direction[2] / r);
+    float currNutationRadius = atan2f(direction[2], r);
     float afterNutationRadius = currNutationRadius + radius;
     if (afterNutationRadius >= M_PI_2) {
-        direction = {0, 0, 1, 0};
+        direction << 0, 0, 1, 0;
         return;
     }
     if (afterNutationRadius <= -M_PI_2) {
-        direction = {0, 0, -1, 0};
+        direction << 0, 0, -1, 0;
         return;
     }
 
-    direction = {sinf(afterNutationRadius) * direction[0] / r, sinf(afterNutationRadius) * direction[1] / r,
-                 cosf(afterNutationRadius), 0};
+    direction << cosf(afterNutationRadius) * direction[0] / r, cosf(afterNutationRadius) * direction[1] / r,
+            sinf(afterNutationRadius), 0;
     direction = direction.normalized();
 }
