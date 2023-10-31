@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Camera.h"
 
-Camera::Camera(Eigen::Vector4f &position, Eigen::Vector4f &direction, float fov)
+Camera::Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov)
         : Movable(position, direction),
           fov(fov) {}
 
@@ -26,7 +26,7 @@ std::shared_ptr<Camera> Camera::deserialize(Json json) {
     position << json["position"][0], json["position"][1], json["position"][2], 1;
     direction << json["direction"][0], json["direction"][1], json["direction"][2], 0;
 
-    return std::make_shared<Camera>(position, direction, json["fov"]);
+    return std::make_shared<Camera>(position, direction.normalized(), json["fov"]);
 }
 
 Eigen::Vector4f Camera::rightDirection() {

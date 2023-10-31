@@ -25,7 +25,7 @@ protected:
     Eigen::Vector4f rightDirection();
 
 public:
-    Camera(Eigen::Vector4f &position, Eigen::Vector4f &direction, float fov);
+    Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov);
 
     static std::shared_ptr<Camera> deserialize(Json json);
 

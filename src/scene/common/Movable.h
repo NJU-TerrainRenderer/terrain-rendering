@@ -19,7 +19,7 @@ public:
 protected:
     Movable() = default;
 
-    Movable(Eigen::Vector4f &position, Eigen::Vector4f &direction)
+    Movable(const Eigen::Vector4f &position, const Eigen::Vector4f &direction)
             : position(position),
               direction(direction) {}
 
