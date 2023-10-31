@@ -20,10 +20,12 @@ protected:
     float speed = 1;
 
     std::vector<std::shared_ptr<CameraListener>> listeners;
+
+    // 获取右向量，该向量应垂直于z轴
+    Eigen::Vector4f rightDirection();
+
 public:
-    Camera(Eigen::Vector4f &position, Eigen::Vector4f &direction, float fov)
-            : Movable(position, direction),
-              fov(fov) {}
+    Camera(Eigen::Vector4f &position, Eigen::Vector4f &direction, float fov);
 
     static std::shared_ptr<Camera> deserialize(Json json);
 
@@ -35,7 +37,13 @@ public:
 
     void registerListener(const std::shared_ptr<CameraListener> &listener);
 
-    void move(float distance);
+    void moveForward(float distance);
+
+    void moveRight(float distance);
+
+    void rotatePrecession(float radius);
+
+    void rotateNutation(float radius);
 };
 
 
