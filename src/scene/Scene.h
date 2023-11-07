@@ -28,6 +28,8 @@ public:
     std::shared_ptr<Camera> getCamera() { return camera; }
 
     void addElement(const std::shared_ptr<Element> &element) { elements.push_back(element); }
+
+    std::vector<std::shared_ptr<Element>> getElements() { return elements; }
 };
 
 
