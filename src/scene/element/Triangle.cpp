@@ -37,3 +37,11 @@ void Triangle::deserializeFrom(Json json) {
     }
     direction << vertexDisplacements[1].head<3>().cross(vertexDisplacements[2].head<3>()).normalized(), 0;
 }
+
+std::shared_ptr<std::vector<Eigen::Vector4f>> Triangle::getVertices() {
+    auto vertices = std::make_shared<std::vector<Eigen::Vector4f>>();
+    for (const auto& vertexDisplacement: vertexDisplacements) {
+        vertices->emplace_back(position + vertexDisplacement);
+    }
+    return vertices;
+}

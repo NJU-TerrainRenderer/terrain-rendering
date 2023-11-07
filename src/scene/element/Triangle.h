@@ -23,6 +23,8 @@ public:
     std::shared_ptr<std::vector<Triangle>> getMesh() override;
 
     void deserializeFrom(Json json) override;
+
+    std::shared_ptr<std::vector<Eigen::Vector4f>> getVertices();
 };
 
 
