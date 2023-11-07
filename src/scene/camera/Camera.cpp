@@ -2,7 +2,6 @@
 // Created by gbc on 2023/9/6.
 //
 
-#include <iostream>
 #include "Camera.h"
 
 Camera::Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov)
