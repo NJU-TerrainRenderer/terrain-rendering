@@ -1,12 +1,21 @@
 #pragma once
-#include"Accelerator.h"
 
+<<<<<<< HEAD
 class LOD:Accelerator{
     public:
 	LOD(std::shared_ptr<Loader>loader);
+=======
+#include "Accelerator.h"
+
+class LOD : Accelerator {
+public:
+>>>>>>> 0cd6363a0a19dc139fca1955b83182ad9e67b373
     virtual void onCameraCreate(std::shared_ptr<Camera>) override;
+
     virtual void onCameraUpdate(std::shared_ptr<Camera>) override;
+
     virtual std::shared_ptr<MeshData> simplify() override;
+<<<<<<< HEAD
     virtual void build(std::shared_ptr<Camera>)override;
     virtual bool covered(AABB, std::shared_ptr<Camera>)const override;
 
@@ -24,4 +33,10 @@ class LOD:Accelerator{
 	int	m_chunk_count;
 	lod_chunk**	m_chunk_table;
 	chunk_tree_loader*	m_loader;
+=======
+
+    virtual void build(std::shared_ptr<Camera>) override;
+
+    virtual bool covered(AABB, std::shared_ptr<Camera>) const override;
+>>>>>>> 0cd6363a0a19dc139fca1955b83182ad9e67b373
 };

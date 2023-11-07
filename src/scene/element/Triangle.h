@@ -8,14 +8,19 @@
 
 #include "Element.h"
 
-class Triangle : Element {
+class Triangle : public Element {
 private:
-    std::vector<Eigen::Vector3f> points;
+    // 此处值为顶点相对锚点的偏移
+    std::vector<Eigen::Vector4f> vertexDisplacements;
 public:
     Triangle() = default;
-    Triangle(const Eigen::Vector3f& point1, const Eigen::Vector3f& point2, const Eigen::Vector3f& point3);
 
-    virtual std::shared_ptr<std::vector<Triangle>> getMesh() override;
+    // 三角形方向为参数三点右手螺旋生成的法向
+    Triangle(Eigen::Vector4f &point1, Eigen::Vector4f &point2, Eigen::Vector4f &point3);
+
+    void affineTransform(Eigen::Matrix4f transformation) override;
+
+    std::shared_ptr<std::vector<Triangle>> getMesh() override;
 };
 
 

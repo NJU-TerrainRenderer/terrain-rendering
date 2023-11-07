@@ -5,12 +5,22 @@
 #ifndef TERRAIN_RENDERING_MOVABLE_H
 #define TERRAIN_RENDERING_MOVABLE_H
 
-#include <Eigen/Core>
+#include <Eigen/Dense>
 
 class Movable {
 public:
-    Eigen::Vector3f position;
-    Eigen::Vector3f direction;
+    // 默认仿射变换接口，默认实现仅会作用于锚点和方向
+    virtual void affineTransform(Eigen::Matrix4f transformation);
+
+protected:
+    Movable() = default;
+
+    Movable(Eigen::Vector4f &position, Eigen::Vector4f &direction)
+            : position(position),
+              direction(direction) {}
+
+    Eigen::Vector4f position = {0, 0, 0, 1};
+    Eigen::Vector4f direction = {1, 0, 0, 0};
 };
 
 

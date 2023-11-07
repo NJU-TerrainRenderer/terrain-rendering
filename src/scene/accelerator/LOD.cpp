@@ -1,5 +1,6 @@
-#include"LOD.h"
+#include "LOD.h"
 
+<<<<<<< HEAD
 #ifndef M_PI
 #define M_PI 3.141592654
 #endif // M_PI
@@ -615,10 +616,13 @@ LOD::LOD(std::shared_ptr<Loader>loader):Accelerator(loader){
 }
 
 void LOD::onCameraCreate(std::shared_ptr<Camera>){
+=======
+void LOD::onCameraCreate(std::shared_ptr<Camera>) {
+>>>>>>> 0cd6363a0a19dc139fca1955b83182ad9e67b373
     //TODO
 }
 
-void LOD::onCameraUpdate(std::shared_ptr<Camera>){
+void LOD::onCameraUpdate(std::shared_ptr<Camera>) {
     //TODO
 }
 
@@ -626,10 +630,12 @@ std::shared_ptr<MeshData> LOD::simplify() {
     //TODO
     return NULL;
 }
+
 void LOD::build(std::shared_ptr<Camera>) {
     //TODO
 }
-bool LOD::covered(AABB, std::shared_ptr<Camera>) const{
+
+bool LOD::covered(AABB, std::shared_ptr<Camera>) const {
     //TODO
     return false;
 }

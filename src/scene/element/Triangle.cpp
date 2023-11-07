@@ -4,14 +4,25 @@
 
 #include "Triangle.h"
 
-Triangle::Triangle(const Eigen::Vector3f& point1, const Eigen::Vector3f& point2, const Eigen::Vector3f& point3) {
-    points.push_back(point1);
-    points.push_back(point2);
-    points.push_back(point3);
-};
+Triangle::Triangle(Eigen::Vector4f &point1, Eigen::Vector4f &point2, Eigen::Vector4f &point3) {
+    position = point1;
+
+    vertexDisplacements.emplace_back(point1 - position);
+    vertexDisplacements.emplace_back(point2 - position);
+    vertexDisplacements.emplace_back(point3 - position);
+
+    direction << vertexDisplacements[1].head<3>().cross(vertexDisplacements[2].head<3>()).normalized(), 0;
+}
 
 std::shared_ptr<std::vector<Triangle>> Triangle::getMesh() {
     auto mesh = std::make_shared<std::vector<Triangle>>();
     mesh->push_back(*this);
     return mesh;
+}
+
+void Triangle::affineTransform(Eigen::Matrix4f transformation) {
+    Movable::affineTransform(transformation);
+    for (int i = 0; i < 3; i++) {
+        vertexDisplacements[0] = transformation * vertexDisplacements[0];
+    }
 }
