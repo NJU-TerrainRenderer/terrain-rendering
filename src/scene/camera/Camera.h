@@ -13,6 +13,8 @@
 
 class Camera : public Movable {
 protected:
+    float width = 64;
+    float height = 64;
     float fov = 0;
 
     float speed = 1;
@@ -26,6 +28,10 @@ public:
     Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov);
 
     static std::shared_ptr<Camera> deserialize(Json json);
+
+    void setWidth(float newWidth) { width = newWidth; }
+
+    void setHeight(float newHeight) { height = newHeight; }
 
     void setFov(float newFov) { fov = newFov; }
 
