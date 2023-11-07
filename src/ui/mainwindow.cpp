@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->displayWidget->setScene(scene);
         ui->currSceneName->setText(QString::fromStdString(scene->getName()));
     });
+    
+    ui->displayWidget->update();
 }
 
 MainWindow::~MainWindow() {

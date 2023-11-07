@@ -17,6 +17,8 @@ find_package(Qt5 COMPONENTS
         REQUIRED)
 
 find_package(Eigen3 REQUIRED)
+find_package(OpenGL REQUIRED)
+
 INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
 
 INCLUDE_DIRECTORIES(${JSON_DIR})
@@ -37,7 +39,8 @@ add_executable(terrain_rendering
 target_link_libraries(terrain_rendering
         Qt5::Core
         Qt5::Gui
-        Qt5::Widgets)
+        Qt5::Widgets
+        OpenGL::GL)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
