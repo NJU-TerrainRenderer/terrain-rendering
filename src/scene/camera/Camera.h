@@ -29,6 +29,8 @@ public:
 
     void setFov(float newFov) { fov = newFov; }
 
+    float getFov() { return fov; }
+
     void registerListener(const std::shared_ptr<CameraListener> &listener);
 
     void moveForward(float distance);

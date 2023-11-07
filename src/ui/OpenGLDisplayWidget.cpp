@@ -16,6 +16,11 @@ void glPerspective(GLdouble fov, GLdouble aspectRatio, GLdouble zNear, GLdouble 
                zNear, zFar );
 }
 
+void OpenGLDisplayWidget::setScene(std::shared_ptr<Scene> &newScene) {
+    scene = newScene;
+    scene->getCamera()->registerListener(std::shared_ptr<CameraListener>(this));
+}
+
 
 void OpenGLDisplayWidget::initializeGL() {
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -24,13 +29,19 @@ void OpenGLDisplayWidget::initializeGL() {
     glEnable(GL_DEPTH_TEST);
 }
 
-void OpenGLDisplayWidget::resizeGL(int w, int h) {
-    glViewport(0, 0, (GLint)w, (GLint)h); // 设置视口大小
+void OpenGLDisplayWidget::setMVPMatrix() {
     glMatrixMode(GL_PROJECTION); // 投影矩阵
     glLoadIdentity();
+    auto camera = scene->getCamera();
+    float fov = camera->getFov();
     glPerspective(45.0, (GLfloat)w/(GLfloat)h, 0.1, 100.0);
-    glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW); // 模型视图矩阵
     glLoadIdentity();
+}
+
+void OpenGLDisplayWidget::resizeGL(int w, int h) {
+    glViewport(0, 0, (GLint)w, (GLint)h); // 设置视口大小
+    setMVPMatrix();
 }
 
 void OpenGLDisplayWidget::paintGL() {

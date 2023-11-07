@@ -24,11 +24,13 @@ public:
 
     explicit OpenGLDisplayWidget(QWidget *parent = nullptr);
 
-    void setScene(std::shared_ptr<Scene> &newScene) { scene = newScene; }
+    void setScene(std::shared_ptr<Scene> &newScene);
 
     void onCameraCreate(std::shared_ptr<Camera> camera) override;
 
     void onCameraUpdate(std::shared_ptr<Camera> camera) override;
+
+    void setMVPMatrix();
 };
 
 
