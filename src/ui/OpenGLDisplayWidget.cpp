@@ -63,10 +63,6 @@ void OpenGLDisplayWidget::paintGL() {
     glEnd();
 }
 
-void OpenGLDisplayWidget::onCameraCreate(std::shared_ptr<Camera> camera) {
-    update();
-}
-
 void OpenGLDisplayWidget::onCameraUpdate(std::shared_ptr<Camera> camera) {
     update();
 }

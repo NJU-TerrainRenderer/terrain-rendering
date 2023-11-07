@@ -11,14 +11,17 @@ Camera::Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction
 
 void Camera::registerListener(const std::shared_ptr<CameraListener> &listener) {
     listeners.push_back(listener);
+    listener->onCameraUpdate(shared_from_this());
 }
 
 void Camera::moveForward(float distance) {
     position += direction * distance;
+    notifyListeners();
 }
 
 void Camera::moveRight(float distance) {
     position += rightDirection() * distance;
+    notifyListeners();
 }
 
 std::shared_ptr<Camera> Camera::deserialize(Json json) {
@@ -41,6 +44,7 @@ void Camera::rotatePrecession(float radius) {
             0, 0, 1, 0,
             0, 0, 0, 1;
     direction = (rotation * direction).normalized();
+    notifyListeners();
 }
 
 void Camera::rotateNutation(float radius) {
@@ -59,4 +63,11 @@ void Camera::rotateNutation(float radius) {
     direction << cosf(afterNutationRadius) * direction[0] / r, cosf(afterNutationRadius) * direction[1] / r,
             sinf(afterNutationRadius), 0;
     direction = direction.normalized();
+    notifyListeners();
+}
+
+void Camera::notifyListeners() {
+    for (const std::shared_ptr<CameraListener>& listener: listeners) {
+        listener->onCameraUpdate(shared_from_this());
+    }
 }

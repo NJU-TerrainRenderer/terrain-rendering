@@ -11,7 +11,7 @@
 #include "CameraListener.h"
 #include "common/json.h"
 
-class Camera : public Movable {
+class Camera : public Movable, public std::enable_shared_from_this<Camera> {
 protected:
     float width = 64;
     float height = 64;
@@ -24,6 +24,7 @@ protected:
     // 获取右向量，该向量应垂直于z轴
     Eigen::Vector4f rightDirection();
 
+    void notifyListeners();
 public:
     Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov);
 
