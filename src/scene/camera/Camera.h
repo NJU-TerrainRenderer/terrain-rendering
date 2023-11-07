@@ -15,7 +15,7 @@ class Camera : public Movable {
 protected:
     float width = 64;
     float height = 64;
-    float fov = 0;
+    float fov = 0.8;
 
     float speed = 1;
 
@@ -32,6 +32,10 @@ public:
     void setWidth(float newWidth) { width = newWidth; }
 
     void setHeight(float newHeight) { height = newHeight; }
+
+    float getWidth() { return width; }
+
+    float getHeight() { return height; }
 
     void setFov(float newFov) { fov = newFov; }
 

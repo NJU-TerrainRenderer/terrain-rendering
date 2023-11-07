@@ -10,7 +10,8 @@
 #include "scene/camera/CameraListener.h"
 #include "scene/Scene.h"
 
-class OpenGLDisplayWidget : public QOpenGLWidget, public CameraListener {
+class OpenGLDisplayWidget : public QOpenGLWidget, public CameraListener,
+        public std::enable_shared_from_this<OpenGLDisplayWidget> {
 private:
     std::shared_ptr<Scene> scene;
 protected:
