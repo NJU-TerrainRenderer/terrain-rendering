@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{53BB22B2-F0F2-4A44-9E78-7E5563926CB5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Qt\Qt5.14.2\5.14.2\mingw73_64\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Qt\Qt5.14.2\5.14.2\mingw73_64\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Qt\Qt5.14.2\5.14.2\mingw73_64\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Qt\Qt5.14.2\5.14.2\mingw73_64\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="out\build\x64-debug\cmakefiles\3.25.1-msvc1\compileridcxx\CMakeCXXCompilerId.cpp" />
+    <ClCompile Include="out\build\x64-debug\cmakefiles\3.25.1-msvc1\compileridc\CMakeCCompilerId.c" />
+    <ClCompile Include="out\build\x64-debug\cmakefiles\showincludes\main.c" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\scene\accelerator\Accelerator.cpp" />
+    <ClCompile Include="src\scene\accelerator\LOD.cpp" />
+    <ClCompile Include="src\scene\accelerator\Plain.cpp" />
+    <ClCompile Include="src\scene\camera\Camera.cpp" />
+    <ClCompile Include="src\scene\common\Movable.cpp" />
+    <ClCompile Include="src\scene\element\Element.cpp" />
+    <ClCompile Include="src\scene\element\Mesh.cpp" />
+    <ClCompile Include="src\scene\element\Triangle.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\ui\mainwindow.cpp" />
+    <ClCompile Include="src\ui\OpenGLDisplayWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\cholesky\LDLT.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\cholesky\LLT.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\cholesky\LLT_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\cholmodsupport\CholmodSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\altivec\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\altivec\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\altivec\MatrixProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\altivec\MatrixProductCommon.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\altivec\MatrixProductMMA.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\altivec\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx512\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx512\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx512\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx512\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\avx\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\cuda\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\BFloat16.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\ConjHelper.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\GenericPacketMathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\GenericPacketMathFunctionsFwd.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\Half.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\Settings.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\default\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\gpu\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\gpu\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\gpu\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\hip\hcc\math_constants.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\msa\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\msa\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\msa\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\neon\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\neon\GeneralBlockPanelKernel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\neon\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\neon\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\neon\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sse\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sse\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sse\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sse\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sve\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sve\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sve\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sycl\InteropHeaders.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sycl\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sycl\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sycl\SyclMemoryModel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\sycl\TypeCasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\zvector\Complex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\zvector\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\arch\zvector\PacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ArithmeticSequence.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Array.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ArrayBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ArrayWrapper.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Assign.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\AssignEvaluator.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Assign_MKL.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\BandMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Block.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\BooleanRedux.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CommaInitializer.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ConditionEstimator.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CoreEvaluators.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CoreIterators.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CwiseBinaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CwiseNullaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CwiseTernaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CwiseUnaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\CwiseUnaryView.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\DenseBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\DenseCoeffsBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\DenseStorage.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Diagonal.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\DiagonalMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\DiagonalProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Dot.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\EigenBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ForceAlignedAccess.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\functors\AssignmentFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\functors\BinaryFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\functors\NullaryFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\functors\StlFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\functors\TernaryFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\functors\UnaryFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Fuzzy.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\GeneralProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\GenericPacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\GlobalFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\IndexedView.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Inverse.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\IO.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Map.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\MapBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\MathFunctionsImpl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Matrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\MatrixBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\NestByValue.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\NoAlias.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\NumTraits.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\PartialReduxEvaluator.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\PermutationMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\PlainObjectBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Product.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ProductEvaluators.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralBlockPanelKernel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralMatrixMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralMatrixMatrixTriangular.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralMatrixMatrixTriangular_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralMatrixMatrix_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralMatrixVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\GeneralMatrixVector_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\Parallelizer.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\SelfadjointMatrixMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\SelfadjointMatrixMatrix_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\SelfadjointMatrixVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\SelfadjointMatrixVector_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\SelfadjointProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\SelfadjointRank2Update.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularMatrixMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularMatrixMatrix_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularMatrixVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularMatrixVector_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularSolverMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularSolverMatrix_BLAS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\products\TriangularSolverVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Random.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Redux.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Ref.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Replicate.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Reshaped.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\ReturnByValue.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Reverse.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Select.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\SelfAdjointView.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\SelfCwiseBinaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Solve.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\SolverBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\SolveTriangular.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\StableNorm.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\StlIterators.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Stride.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Swap.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Transpose.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Transpositions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\TriangularMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\BlasUtil.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\ConfigureVectorization.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\Constants.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\DisableStupidWarnings.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\ForwardDeclarations.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\IndexedViewHelper.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\IntegralConstant.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\Macros.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\Memory.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\Meta.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\MKL_support.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\NonMPL2.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\ReenableStupidWarnings.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\ReshapedHelper.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\StaticAssert.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\SymbolicIndex.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\util\XprHelper.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\VectorBlock.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\VectorwiseOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\core\Visitor.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\ComplexEigenSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\ComplexSchur.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\ComplexSchur_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\EigenSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\GeneralizedEigenSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\GeneralizedSelfAdjointEigenSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\HessenbergDecomposition.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\MatrixBaseEigenvalues.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\RealQZ.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\RealSchur.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\RealSchur_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\SelfAdjointEigenSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\SelfAdjointEigenSolver_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\eigenvalues\Tridiagonalization.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\AlignedBox.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\AngleAxis.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\arch\Geometry_SIMD.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\EulerAngles.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Homogeneous.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Hyperplane.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\OrthoMethods.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\ParametrizedLine.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Quaternion.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Rotation2D.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\RotationBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Scaling.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Transform.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Translation.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\geometry\Umeyama.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\householder\BlockHouseholder.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\householder\Householder.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\householder\HouseholderSequence.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\BasicPreconditioners.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\BiCGSTAB.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\ConjugateGradient.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\IncompleteCholesky.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\IncompleteLUT.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\IterativeSolverBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\LeastSquareConjugateGradient.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\iterativelinearsolvers\SolveWithGuess.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\jacobi\Jacobi.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\klusupport\KLUSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\lu\arch\InverseSize4.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\lu\Determinant.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\lu\FullPivLU.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\lu\InverseImpl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\lu\PartialPivLU.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\lu\PartialPivLU_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\metissupport\MetisSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\blas.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\Image.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\Kernel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\lapack.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\lapacke.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\lapacke_mangling.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\misc\RealSvd2x2.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\orderingmethods\Amd.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\orderingmethods\Eigen_Colamd.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\orderingmethods\Ordering.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\pardisosupport\PardisoSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\pastixsupport\PaStiXSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\ArrayCwiseBinaryOps.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\ArrayCwiseUnaryOps.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\BlockMethods.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\CommonCwiseBinaryOps.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\CommonCwiseUnaryOps.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\IndexedViewMethods.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\MatrixCwiseBinaryOps.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\MatrixCwiseUnaryOps.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\plugins\ReshapedMethods.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\qr\ColPivHouseholderQR.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\qr\ColPivHouseholderQR_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\qr\CompleteOrthogonalDecomposition.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\qr\FullPivHouseholderQR.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\qr\HouseholderQR.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\qr\HouseholderQR_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecholesky\SimplicialCholesky.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecholesky\SimplicialCholesky_impl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\AmbiVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\CompressedStorage.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\ConservativeSparseSparseProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\MappedSparseMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseAssign.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseBlock.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseColEtree.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseCompressedBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseCwiseBinaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseCwiseUnaryOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseDenseProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseDiagonalProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseDot.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseFuzzy.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseMap.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseMatrixBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparsePermutation.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseRedux.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseRef.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseSelfAdjointView.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseSolverBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseSparseProductWithPruning.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseTranspose.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseTriangularView.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseUtil.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\SparseView.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparsecore\TriangularSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLUImpl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_column_bmod.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_column_dfs.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_copy_to_ucol.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_gemm_kernel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_heap_relax_snode.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_kernel_bmod.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_Memory.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_panel_bmod.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_panel_dfs.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_pivotL.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_pruneL.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_relax_snode.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_Structs.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_SupernodalMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparselu\SparseLU_Utils.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\sparseqr\SparseQR.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\spqrsupport\SuiteSparseQRSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\stlsupport\details.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\stlsupport\StdDeque.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\stlsupport\StdList.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\stlsupport\StdVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\superlusupport\SuperLUSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\svd\BDCSVD.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\svd\JacobiSVD.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\svd\JacobiSVD_LAPACKE.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\svd\SVDBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\svd\UpperBidiagonalization.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\eigen\src\umfpacksupport\UmfPackSupport.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensorsymmetry\DynamicSymmetry.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensorsymmetry\StaticSymmetry.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensorsymmetry\Symmetry.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensorsymmetry\util\TemplateGroupTheory.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\Tensor.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorArgMax.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorAssign.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorBlock.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorBroadcasting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorChipping.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorConcatenation.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContraction.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContractionBlocking.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContractionCuda.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContractionGpu.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContractionMapper.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContractionSycl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorContractionThreadPool.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorConversion.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorConvolution.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorConvolutionSycl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorCostModel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorCustomOp.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDevice.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDeviceCuda.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDeviceDefault.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDeviceGpu.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDeviceSycl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDeviceThreadPool.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDimensionList.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorDimensions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorEvalTo.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorEvaluator.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorExecutor.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorExpr.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorFFT.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorFixedSize.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorForcedEval.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorForwardDeclarations.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorGenerator.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorGlobalFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorGpuHipCudaDefines.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorGpuHipCudaUndefines.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorImagePatch.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorIndexList.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorInflation.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorInitializer.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorIntDiv.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorIO.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorLayoutSwap.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorMacros.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorMap.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorMeta.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorMorphing.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorPadding.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorPatch.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorRandom.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorReduction.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorReductionCuda.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorReductionGpu.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorReductionSycl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorRef.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorReverse.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorScan.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorScanSycl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorShuffling.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorStorage.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorStriding.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorTrace.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorTraits.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorUInt128.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\tensor\TensorVolumePatch.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\Barrier.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\EventCount.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\NonBlockingThreadPool.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\RunQueue.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\ThreadCancel.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\ThreadEnvironment.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\ThreadLocal.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\ThreadPoolInterface.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\threadpool\ThreadYield.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\util\CXX11Meta.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\util\CXX11Workarounds.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\util\EmulateArray.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\cxx11\src\util\MaxSizeVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\autodiff\AutoDiffJacobian.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\autodiff\AutoDiffScalar.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\autodiff\AutoDiffVector.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\bvh\BVAlgorithms.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\bvh\KdBVH.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\eigenvalues\ArpackSelfAdjointEigenSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\eulerangles\EulerAngles.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\eulerangles\EulerSystem.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\fft\ei_fftw_impl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\fft\ei_kissfft_impl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\ConstrainedConjGrad.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\DGMRES.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\GMRES.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\IDRS.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\IncompleteLU.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\IterationController.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\MINRES.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\iterativesolvers\Scaling.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\kroneckerproduct\KroneckerTensorProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\levenbergmarquardt\LevenbergMarquardt.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\levenbergmarquardt\LMcovar.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\levenbergmarquardt\LMonestep.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\levenbergmarquardt\LMpar.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\levenbergmarquardt\LMqrsolv.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\matrixfunctions\MatrixExponential.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\matrixfunctions\MatrixFunction.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\matrixfunctions\MatrixLogarithm.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\matrixfunctions\MatrixPower.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\matrixfunctions\MatrixSquareRoot.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\matrixfunctions\StemFunction.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\morevectorization\MathFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\chkder.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\covar.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\dogleg.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\fdjac1.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\HybridNonLinearSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\LevenbergMarquardt.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\lmpar.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\qrsolv.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\r1mpyq.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\r1updt.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\nonlinearoptimization\rwupdt.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\numericaldiff\NumericalDiff.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\polynomials\Companion.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\polynomials\PolynomialSolver.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\polynomials\PolynomialUtils.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\skyline\SkylineInplaceLU.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\skyline\SkylineMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\skyline\SkylineMatrixBase.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\skyline\SkylineProduct.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\skyline\SkylineStorage.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\skyline\SkylineUtil.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\sparseextra\BlockOfDynamicSparseMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\sparseextra\BlockSparseMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\sparseextra\DynamicSparseMatrix.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\sparseextra\MarketIO.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\sparseextra\MatrixMarketIterator.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\sparseextra\RandomSetter.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\avx512\BesselFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\avx512\SpecialFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\avx\BesselFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\avx\SpecialFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\gpu\SpecialFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\neon\BesselFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\arch\neon\SpecialFunctions.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\BesselFunctionsArrayAPI.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\BesselFunctionsBFloat16.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\BesselFunctionsFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\BesselFunctionsHalf.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\BesselFunctionsImpl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\BesselFunctionsPacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\HipVectorCompatibility.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\SpecialFunctionsArrayAPI.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\SpecialFunctionsBFloat16.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\SpecialFunctionsFunctors.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\SpecialFunctionsHalf.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\SpecialFunctionsImpl.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\specialfunctions\SpecialFunctionsPacketMath.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\splines\Spline.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\splines\SplineFitting.h" />
+    <ClInclude Include="dependencies\eigen3.4.0\include\eigen3\unsupported\eigen\src\splines\SplineFwd.h" />
+    <ClInclude Include="out\build\x64-debug\cmakefiles\showincludes\foo.h" />
+    <ClInclude Include="src\scene\accelerator\Accelerator.h" />
+    <ClInclude Include="src\scene\accelerator\LOD.h" />
+    <ClInclude Include="src\scene\accelerator\Plain.h" />
+    <ClInclude Include="src\scene\camera\Camera.h" />
+    <ClInclude Include="src\scene\camera\CameraListener.h" />
+    <ClInclude Include="src\scene\common\Movable.h" />
+    <ClInclude Include="src\scene\element\Element.h" />
+    <ClInclude Include="src\scene\element\Mesh.h" />
+    <ClInclude Include="src\scene\element\Triangle.h" />
+    <ClInclude Include="src\scene\Scene.h" />
+    <ClInclude Include="src\ui\mainwindow.h" />
+    <ClInclude Include="src\ui\OpenGLDisplayWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="out\build\x64-debug\cmakefiles\3.25.1-msvc1\CMakeDetermineCompilerABI_C.bin" />
+    <None Include="out\build\x64-debug\cmakefiles\3.25.1-msvc1\CMakeDetermineCompilerABI_CXX.bin" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
