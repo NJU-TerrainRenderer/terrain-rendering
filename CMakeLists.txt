@@ -8,6 +8,7 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
 set(Eigen3_DIR "./dependencies/Eigen3.4.0/share/eigen3/cmake")
+set(JSON_DIR "./dependencies/JSON")
 
 find_package(Qt5 COMPONENTS
         Core
@@ -16,7 +17,12 @@ find_package(Qt5 COMPONENTS
         REQUIRED)
 
 find_package(Eigen3 REQUIRED)
+find_package(OpenGL REQUIRED)
+
 INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
+
+INCLUDE_DIRECTORIES(${JSON_DIR})
+
 INCLUDE_DIRECTORIES(src)
 
 file(GLOB ALLFILE
@@ -33,7 +39,8 @@ add_executable(terrain_rendering
 target_link_libraries(terrain_rendering
         Qt5::Core
         Qt5::Gui
-        Qt5::Widgets)
+        Qt5::Widgets
+        OpenGL::GL)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

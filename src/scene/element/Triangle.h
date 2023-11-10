@@ -18,9 +18,13 @@ public:
     // 三角形方向为参数三点右手螺旋生成的法向
     Triangle(Eigen::Vector4f &point1, Eigen::Vector4f &point2, Eigen::Vector4f &point3);
 
-    void affineTransform(Eigen::Matrix4f transformation) override;
+    void affineTransform(const Eigen::Matrix4f &transformation) override;
 
     std::shared_ptr<std::vector<Triangle>> getMesh() override;
+
+    void deserializeFrom(Json json) override;
+
+    std::shared_ptr<std::vector<Eigen::Vector4f>> getVertices();
 };
 
 

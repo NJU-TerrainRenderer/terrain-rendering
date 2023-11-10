@@ -20,9 +20,28 @@ std::shared_ptr<std::vector<Triangle>> Triangle::getMesh() {
     return mesh;
 }
 
-void Triangle::affineTransform(Eigen::Matrix4f transformation) {
+void Triangle::affineTransform(const Eigen::Matrix4f &transformation) {
     Movable::affineTransform(transformation);
     for (int i = 0; i < 3; i++) {
         vertexDisplacements[0] = transformation * vertexDisplacements[0];
     }
+}
+
+void Triangle::deserializeFrom(Json json) {
+    position << json["points"][0][0], json["points"][0][1], json["points"][0][2], 1;
+
+    Eigen::Vector4f point;
+    for (auto &pointJson: json["points"]) {
+        point << pointJson[0], pointJson[1], pointJson[2], 1;
+        vertexDisplacements.emplace_back(point - position);
+    }
+    direction << vertexDisplacements[1].head<3>().cross(vertexDisplacements[2].head<3>()).normalized(), 0;
+}
+
+std::shared_ptr<std::vector<Eigen::Vector4f>> Triangle::getVertices() {
+    auto vertices = std::make_shared<std::vector<Eigen::Vector4f>>();
+    for (const auto& vertexDisplacement: vertexDisplacements) {
+        vertices->emplace_back(position + vertexDisplacement);
+    }
+    return vertices;
 }

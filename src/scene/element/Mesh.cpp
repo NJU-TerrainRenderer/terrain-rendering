@@ -15,6 +15,7 @@ MeshData::MeshData(char* path) {
 	ImgSizeY = poDataset->GetRasterYSize();
 }
 
+<<<<<<< HEAD
 int MeshData::GetImgSizeX() {
 	return ImgSizeX;
 }
@@ -106,6 +107,11 @@ TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 }
 
 
+=======
+void MeshData::deserializeFrom(Json json) {
+
+}
+>>>>>>> 1e2aee89b9b302a7f9b7e003d969be0890f57b29
 /*
 MeshData::MeshData(std::vector<Triangle>triangles) {
 	//TODO

@@ -7,13 +7,19 @@
 
 #include <Eigen/Core>
 #include <memory>
-#include "../common/Movable.h"
+#include "scene/common/Movable.h"
+#include "common/json.h"
 
 class Triangle;
 
 class Element : public Movable {
 public:
+    static std::shared_ptr<Element> getElementFromJson(Json json);
+
+    virtual void deserializeFrom(Json json) = 0;
+
     virtual std::shared_ptr<std::vector<Triangle>> getMesh() = 0;
+
 };
 
 
