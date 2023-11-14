@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../camera/Camera.h"
-#include "../element/Mesh.h"
+#include "element/Mesh.h"
+
+using Mesh = TIN;
 
 class Camera;
 
@@ -12,6 +14,7 @@ struct AABB {
 
 class Accelerator {
 protected:
+    void getFieid(std::shared_ptr<Camera> camera, float& xmin, float& xmax, float& ymin, float& ymax);
     std::shared_ptr<Loader> loader;
     std::shared_ptr<MeshData> rawMesh, simplifiedMesh;
 
@@ -32,6 +35,6 @@ public:
     virtual void build(std::shared_ptr<Camera>) = 0; //建立or更新数据结构。
     virtual std::shared_ptr<MeshData> simplify() = 0;  //利用数据结构对rawMesh化简。
     std::shared_ptr<MeshData> getMesh() {
-        return NULL;
+        return simplifiedMesh;
     }
 };

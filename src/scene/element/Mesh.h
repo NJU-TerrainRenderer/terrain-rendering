@@ -8,7 +8,6 @@
 #include <gdal.h>
 #include <gdal_priv.h>
 
-<<<<<<< HEAD
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Projection_traits_xy_3.h>
 #include <CGAL/Delaunay_triangulation_2.h>
@@ -32,10 +31,13 @@ class MeshData : public Element {
 	//std::vector<Triangle>triangles;
 public:
 	MeshData(char* path);
+	MeshData() {};
 	int GetImgSizeX();
 	int GetImgSizeY();
 	TIN GetMesh(int x1, int y1, int x2, int y2);
-
+	TIN GetData() {
+		return data;
+	}
 	//TODO()
 
 	//MeshData(std::vector<Triangle>triangles);
@@ -45,6 +47,7 @@ private:
 	char* MeshPath;
 	int ImgSizeX;
 	int ImgSizeY;
+	TIN data;
 
 	//MeshData(std::vector<Triangle>triangles);
 	//bool insertTriangle(Triangle t);
@@ -54,15 +57,4 @@ private:
 		return t.getMesh();
 	 };
 	 */
-=======
-    //MeshData(std::vector<Triangle>triangles);
-    //bool insertTriangle(Triangle t);
-    //bool insertTriangle(const Eigen::Vector3f& point1, const Eigen::Vector3f& point2, const Eigen::Vector3f& point3);
-    virtual std::shared_ptr<std::vector<Triangle>> getMesh() override {
-        Triangle t;
-        return t.getMesh();
-    };
-
-    void deserializeFrom(Json json) override;
->>>>>>> 1e2aee89b9b302a7f9b7e003d969be0890f57b29
 };

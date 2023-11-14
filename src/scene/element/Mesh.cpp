@@ -15,7 +15,6 @@ MeshData::MeshData(char* path) {
 	ImgSizeY = poDataset->GetRasterYSize();
 }
 
-<<<<<<< HEAD
 int MeshData::GetImgSizeX() {
 	return ImgSizeX;
 }
@@ -53,7 +52,7 @@ TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	int nImgSizeY = ImgSizeY;
 	//cout << nImgSizeX << "  *  " << nImgSizeY << endl;
 
-	//»ñÈ¡×ø±ê±ä»»ÏµÊý 
+	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ä»»Ïµï¿½ï¿½ 
 	double trans[6];
 	poDataset->GetGeoTransform(trans);
 	double dx = trans[1];
@@ -61,12 +60,12 @@ TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	double dy = -trans[5];
 	double starty = trans[3] - nImgSizeY * dy + 0.5 * dy;
 
-	//»ñÈ¡Í¼Ïñ²¨¶Î 
+	//ï¿½ï¿½È¡Í¼ï¿½ñ²¨¶ï¿½ 
 	GDALRasterBand* poBand;
 	int bandcount;
 	bandcount = poDataset->GetRasterCount();
 
-	//¶ÁÊý¾Ý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int* pafScanline;
 	pafScanline = new int[nImgSizeX * nImgSizeY];
 	poBand = poDataset->GetRasterBand(bandcount);
@@ -98,20 +97,15 @@ TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 		}
 	}
 
-	//Éú³ÉÈý½ÇÍø¸ñ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	TIN dsm(points.points().begin(), points.points().end());
-	//Êä³öÈý½ÇÍø¸ñµÄ¶¥µãÊýÄ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
 	cout << dsm.number_of_vertices() << endl;
-
+	this->data = dsm;
 	return dsm;
 }
 
 
-=======
-void MeshData::deserializeFrom(Json json) {
-
-}
->>>>>>> 1e2aee89b9b302a7f9b7e003d969be0890f57b29
 /*
 MeshData::MeshData(std::vector<Triangle>triangles) {
 	//TODO
