@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->fileDialogButton, &QPushButton::clicked, [=]() {
-        QString sceneFileString = QFileDialog::getOpenFileName(this, "选取场景", "/");
+        QString sceneFileString = QFileDialog::getOpenFileName(this, "选取场景", "../");
         if (sceneFileString.isEmpty()) {
             return;
         }

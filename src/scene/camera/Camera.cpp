@@ -36,6 +36,10 @@ Eigen::Vector4f Camera::rightDirection() {
     return right.normalized();
 }
 
+Eigen::Vector4f Camera::getCameraDirection() {
+    return getDirection().normalized();
+}
+
 void Camera::rotatePrecession(float radius) {
     Eigen::Matrix4f rotation;
     rotation << cosf(radius), -sinf(radius), 0, 0,
