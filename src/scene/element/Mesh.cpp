@@ -1,4 +1,4 @@
-#include "Meshdata.h"
+ï»¿#include "Meshdata.h"
 
 MeshData::MeshData(char* path) {
 	MeshPath = path;
@@ -53,7 +53,7 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	int nImgSizeY = ImgSizeY;
 	//cout << nImgSizeX << "  *  " << nImgSizeY << endl;
 
-	//»ñÈ¡×ø±ê±ä»»ÏµÊı 
+	//è·å–åæ ‡å˜æ¢ç³»æ•° 
 	double trans[6];
 	poDataset->GetGeoTransform(trans);
 	double dx = trans[1];
@@ -61,12 +61,12 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	double dy = -trans[5];
 	double starty = trans[3] - nImgSizeY * dy + 0.5 * dy;
 
-	//»ñÈ¡Í¼Ïñ²¨¶Î 
+	//è·å–å›¾åƒæ³¢æ®µ 
 	GDALRasterBand* poBand;
 	int bandcount;
 	bandcount = poDataset->GetRasterCount();
 
-	//¶ÁÊı¾İ
+	//è¯»æ•°æ®
 	int* pafScanline;
 	pafScanline = new int[nImgSizeX * nImgSizeY];
 	poBand = poDataset->GetRasterBand(bandcount);
@@ -101,9 +101,9 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 		}
 	}
 
-	//Éú³ÉÈı½ÇÍø¸ñ
+	//ç”Ÿæˆä¸‰è§’ç½‘æ ¼
 	//TIN dsm(points.points().begin(), points.points().end());
-	//Êä³öÈı½ÇÍø¸ñµÄ¶¥µãÊıÄ¿
+	//è¾“å‡ºä¸‰è§’ç½‘æ ¼çš„é¡¶ç‚¹æ•°ç›®
 	//cout << dsm.number_of_vertices() << endl;
 
 	return height;
