@@ -4,7 +4,15 @@
 
 #include "Movable.h"
 
-void Movable::affineTransform(Eigen::Matrix4f transformation) {
+void Movable::affineTransform(const Eigen::Matrix4f &transformation) {
     direction = transformation * direction;
     position = transformation * position;
 }
+
+void Movable::moveTo(Eigen::Vector4f &newPosition) {
+    position = newPosition;
+}
+
+//void Movable::pointAt(Eigen::Vector4f &newDirection) {
+//    direction = newDirection;
+//}

@@ -15,6 +15,7 @@ MeshData::MeshData(char* path) {
 	ImgSizeY = poDataset->GetRasterYSize();
 }
 
+
 int MeshData::GetImgSizeX() {
 	return ImgSizeX;
 }
@@ -35,7 +36,7 @@ GDALDataset* createRaster(char* filename, int nRow, int nCol, GDALDataType type)
 	return ds;
 }
 
-TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
+vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	GDALAllRegister();
 	GDALDataset* poDataset;
 
@@ -83,6 +84,8 @@ TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 		return dsm0;
 	}
 
+	vector<int> height;
+
 	for (int i = x1; i <= x2; i++) {
 		for (int j = y1; j <= y2; j++) {
 			num_image_size++;
@@ -93,37 +96,18 @@ TIN MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 			double gy = starty + dy * j;
 			size_t m = (size_t)i * nImgSizeY + j;
 			//tinyCG::Vec3d P(gx, gy, pafScanline[m]);
-			points.insert(Point_3(gx, gy, pafScanline[m]));
+			//points.insert(Point_3(gx, gy, pafScanline[m]));
+			height.push_back(pafScanline[m]);
 		}
 	}
 
 	//生成三角网格
-	TIN dsm(points.points().begin(), points.points().end());
+	//TIN dsm(points.points().begin(), points.points().end());
 	//输出三角网格的顶点数目
-	cout << dsm.number_of_vertices() << endl;
+	//cout << dsm.number_of_vertices() << endl;
 
-	return dsm;
+	return 
 }
 
 
-/*
-MeshData::MeshData(std::vector<Triangle>triangles) {
-	//TODO
-	return;
-}
-
-bool MeshData::insertTriangle(Triangle t) {
-	return false;
-}
-
-bool MeshData::insertTriangle(const Eigen::Vector3f& point1, const Eigen::Vector3f& point2, const Eigen::Vector3f& point3) {
-	return false;
-}
-
-
-std::shared_ptr<std::vector<Triangle>> MeshData::getMesh(){
-	std::shared_ptr<std::vector<Triangle>>ptr(&triangles);
-	return ptr;
-}
-*/
 

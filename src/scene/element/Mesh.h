@@ -33,7 +33,7 @@ public:
 	MeshData(char* path);
 	int GetImgSizeX();
 	int GetImgSizeY();
-	TIN GetMesh(int x1, int y1, int x2, int y2);
+	vector<int> GetMesh(int x1, int y1, int x2, int y2);
 
 	//TODO()
 
