@@ -131,10 +131,10 @@ void OpenGLDisplayWidget::keyPressEvent(QKeyEvent *e) {
             scene->getCamera()->moveRight(0.1);
             break;
         case Qt::Key_A:
-            scene->getCamera()->moveRight(-0.1);
+            scene->getCamera()->moveRight(-0.05);
             break;
         case Qt::Key_W:
-            scene->getCamera()->moveForward(0.1);
+            scene->getCamera()->moveForward(0.05);
             break;
         case Qt::Key_S:
             scene->getCamera()->moveForward(-0.1);
@@ -145,16 +145,16 @@ void OpenGLDisplayWidget::keyPressEvent(QKeyEvent *e) {
         case Qt::Key_F:
             scene->getCamera()->moveHigher(-0.1);
             break;
-        case Qt::Key_I:
+        case Qt::Key_Up:
             scene->getCamera()->rotateNutation(0.01);
             break;
-        case Qt::Key_K:
-            scene->getCamera()->rotateNutation(-0.1);
+        case Qt::Key_Down:
+            scene->getCamera()->rotateNutation(-0.01);
             break;
-        case Qt::Key_J:
+        case Qt::Key_Left:
             scene->getCamera()->rotatePrecession(0.01);
             break;
-        case Qt::Key_L:
+        case Qt::Key_Right:
             scene->getCamera()->rotatePrecession(-0.01);
             break;
     }
