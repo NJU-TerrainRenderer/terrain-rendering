@@ -33,6 +33,10 @@ protected:
 
     void paintGL() override;
 
+    void mousePressEvent(QMouseEvent *) override;
+
+    void keyPressEvent(QKeyEvent *) override;
+
 public:
 
     explicit OpenGLDisplayWidget(QWidget *parent = nullptr);

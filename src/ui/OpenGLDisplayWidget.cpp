@@ -7,6 +7,9 @@
 #include <cmath>
 #include <memory>
 
+#include <QKeyEvent>
+#include <QMouseEvent>
+
 // for debug:
 #include <iostream>
 
@@ -20,6 +23,7 @@ void glPerspective(GLdouble fov, GLdouble aspectRatio, GLdouble zNear, GLdouble 
               zNear * tan(rFov / 2.0),
               zNear, zFar);
 }
+
 // glLookAt(), 也需要自行实现.
 void glLookAt(float eyeX, float eyeY, float eyeZ,
               float centerX, float centerY, float centerZ,
@@ -28,14 +32,14 @@ void glLookAt(float eyeX, float eyeY, float eyeZ,
     Eigen::Vector3f center(centerX, centerY, centerZ);
     Eigen::Vector3f up(upX, upY, upZ);
     Eigen::Vector3f f = (center - eye).normalized();
-    Eigen::Vector3f r = up.cross(f).normalized();
-    Eigen::Vector3f u = f.cross(r).normalized();
+    Eigen::Vector3f r = f.cross(up).normalized();
+    Eigen::Vector3f u(upX, upY, upZ);
 
     Eigen::Matrix4f viewMatrix;
-    viewMatrix << r.x(),  r.y(),  r.z(), -r.dot(eye),
-            u.x(),  u.y(),  u.z(), -u.dot(eye),
-            -f.x(), -f.y(), -f.z(),  f.dot(eye),
-            0.0f,   0.0f,   0.0f,          1.0f;
+    viewMatrix << r.x(), r.y(), r.z(), -r.dot(eye),
+            u.x(), u.y(), u.z(), -u.dot(eye),
+            -f.x(), -f.y(), -f.z(), f.dot(eye),
+            0.0f, 0.0f, 0.0f, 1.0f;
 
     glMultMatrixf(viewMatrix.data());
 }
@@ -84,13 +88,13 @@ void OpenGLDisplayWidget::paintGL() {
     }
     setMVPMatrix();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    for(auto & elem : scene->getElements()) {
+    for (auto &elem: scene->getElements()) {
         auto mesh = elem->getMesh();
-        for(auto& triangle: *mesh){
+        for (auto &triangle: *mesh) {
             glBegin(GL_TRIANGLES);
             auto normal = triangle.getNormal();
             glColor3f(fabs(normal[0]), fabs(normal[1]), fabs(normal[2]));
-            for(auto& vertex: *(triangle.getVertices())){
+            for (auto &vertex: *(triangle.getVertices())) {
                 glVertex3f(vertex[0], vertex[1], vertex[2]);
             }
             glEnd();
@@ -101,8 +105,57 @@ void OpenGLDisplayWidget::paintGL() {
 OpenGLDisplayWidget::OpenGLDisplayWidget(QWidget *parent) :
         QOpenGLWidget(parent) {
     cameraParser = std::make_shared<CameraParser>(this);
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 void OpenGLDisplayWidget::CameraParser::onCameraUpdate(std::shared_ptr<Camera> camera) {
     displayWidget->update();
+}
+
+void OpenGLDisplayWidget::mousePressEvent(QMouseEvent *) {
+    if (!scene) {
+        return;
+    }
+
+    std::cout << "hello";
+}
+
+void OpenGLDisplayWidget::keyPressEvent(QKeyEvent *e) {
+    if (!scene) {
+        return;
+    }
+
+    switch (e->key()) {
+        // WASD for changing friendly direction
+        case Qt::Key_D:
+            scene->getCamera()->moveRight(0.1);
+            break;
+        case Qt::Key_A:
+            scene->getCamera()->moveRight(-0.1);
+            break;
+        case Qt::Key_W:
+            scene->getCamera()->moveForward(0.1);
+            break;
+        case Qt::Key_S:
+            scene->getCamera()->moveForward(-0.1);
+            break;
+        case Qt::Key_R:
+            scene->getCamera()->moveHigher(0.1);
+            break;
+        case Qt::Key_F:
+            scene->getCamera()->moveHigher(-0.1);
+            break;
+        case Qt::Key_I:
+            scene->getCamera()->rotateNutation(0.01);
+            break;
+        case Qt::Key_K:
+            scene->getCamera()->rotateNutation(-0.1);
+            break;
+        case Qt::Key_J:
+            scene->getCamera()->rotatePrecession(0.01);
+            break;
+        case Qt::Key_L:
+            scene->getCamera()->rotatePrecession(-0.01);
+            break;
+    }
 }

@@ -22,6 +22,7 @@ protected:
     std::vector<std::shared_ptr<CameraListener>> listeners;
 
     void notifyListeners();
+
 public:
     Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov);
 
@@ -51,9 +52,15 @@ public:
 
     void moveRight(float distance);
 
+    void moveHigher(float distance);
+
     void rotatePrecession(float radius);
 
     void rotateNutation(float radius);
+
+    Eigen::Matrix4f toCameraMatrix();
+
+    Eigen::Matrix4f toWorldMatrix();
 };
 
 

@@ -30,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
         auto scene = Scene::deserialize(sceneJson);
         ui->displayWidget->setScene(scene);
         ui->currSceneName->setText(QString::fromStdString(scene->getName()));
+
+        ui->displayWidget->update();
     });
-    
-    ui->displayWidget->update();
 }
 
 MainWindow::~MainWindow() {
