@@ -81,19 +81,20 @@ void Camera::notifyListeners() {
 }
 
 Eigen::Matrix4f Camera::toCameraMatrix() {
-//    Eigen::Vector3f eye = position.head<3>;
-//    Eigen::Vector3f up = rightDirection();
-//    Eigen::Vector3f f = direction.head<3>().normalized();
-//    Eigen::Vector3f r = up.cross(f).normalized();
-//    Eigen::Vector3f u = f.cross(r).normalized();
-//
-//    Eigen::Matrix4f viewMatrix;
-//    viewMatrix << r.x(),  r.y(),  r.z(), -r.dot(eye),
-//            u.x(),  u.y(),  u.z(), -u.dot(eye),
-//            -f.x(), -f.y(), -f.z(),  f.dot(eye),
-//            0.0f,   0.0f,   0.0f,          1.0f;
-//
-    Eigen::Matrix4f matrix;
-//    matrix <<
-    return matrix;
+    Eigen::Vector3f eye = position.head<3>();
+    Eigen::Vector3f f = direction.head<3>().normalized();
+    Eigen::Vector3f r = rightDirection().head<3>();
+    Eigen::Vector3f u = r.cross(f).normalized();
+
+    Eigen::Matrix4f viewMatrix;
+    viewMatrix << r.x(), r.y(), r.z(), -r.dot(eye),
+            u.x(), u.y(), u.z(), -u.dot(eye),
+            -f.x(), -f.y(), -f.z(), f.dot(eye),
+            0.0f, 0.0f, 0.0f, 1.0f;
+
+    return viewMatrix;
+}
+
+Eigen::Matrix4f Camera::toWorldMatrix() {
+    return toCameraMatrix().reverse();
 }
