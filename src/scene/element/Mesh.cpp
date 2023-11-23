@@ -106,7 +106,7 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	//输出三角网格的顶点数目
 	//cout << dsm.number_of_vertices() << endl;
 
-	return 
+	return height;
 }
 
 
