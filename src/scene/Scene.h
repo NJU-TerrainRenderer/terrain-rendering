@@ -6,6 +6,7 @@
 #define TERRAIN_RENDERING_SCENE_H
 
 #include "element/Element.h"
+#include "element/Triangle.h"
 #include "camera/Camera.h"
 
 #include "common/json.h"

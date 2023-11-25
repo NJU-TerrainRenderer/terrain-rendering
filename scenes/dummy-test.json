@@ -1,0 +1,38 @@
+{
+    "name": "test",
+    "camera": {
+        "position": [
+            6,
+            0,
+            0
+        ],
+        "direction": [
+            -1,
+            0,
+            0
+        ],
+        "fov": 0.8
+    },
+    "elements": [
+        {
+            "type": "triangle",
+            "points": [
+                [
+                    0,
+                    0,
+                    1
+                ],
+                [
+                    0,
+                    1,
+                    -1
+                ],
+                [
+                    0,
+                    -1,
+                    -1
+                ]
+            ]
+        }
+    ]
+}

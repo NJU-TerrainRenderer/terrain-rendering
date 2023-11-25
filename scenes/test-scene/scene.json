@@ -33,6 +33,27 @@
                     4
                 ]
             ]
+        },
+        {
+            "type": "mesh",
+            "data": {
+                "path": "",
+                "position": [
+                    0,
+                    0,
+                    0
+                ],
+                "range": [
+                    0,
+                    0
+                ]
+            },
+            "accelerator": {
+                "type": "plain",
+                "parameters": {
+
+                }
+            }
         }
     ]
 }

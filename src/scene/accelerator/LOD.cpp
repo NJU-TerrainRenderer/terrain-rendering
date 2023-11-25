@@ -1,6 +1,31 @@
 #include "LOD.h"
+#include <thread>
+#include <mutex>
+#include <vector>
+using std::vector;
+using std::thread;
+using std::mutex;
 
-<<<<<<< HEAD
+#ifdef __GNUC__
+	// use the builtin (gcc) operator. ugly, but not my call.
+	#define imax _max
+	#define fmax _max
+	#define _max(a,b) ((a)>?(b))
+	#define imin _min
+	#define fmin _min
+	#define _min(a,b) ((a)<?(b))
+#else // not GCC
+	inline int	imax(int a, int b) { if (a < b) return b; else return a; }
+	inline float	fmax(float a, float b) { if (a < b) return b; else return a; }
+	inline int	imin(int a, int b) { if (a < b) return a; else return b; }
+	inline float	fmin(float a, float b) { if (a < b) return a; else return b; }
+#endif // not GCC
+
+static inline int	iclamp(int i, int min, int max) {
+	assert( min <= max );
+	return imax(min, imin(i, max));
+}
+
 #ifndef M_PI
 #define M_PI 3.141592654
 #endif // M_PI
@@ -198,48 +223,391 @@ struct lod_chunk{
 
 //用于控制Chunk 的加载，缓存，卸载
 //需要线程安全
-struct chunk_tree_loader{
-	//TODO
+class chunk_tree_loader
+{
+public:
+	chunk_tree_loader(lod_chunk_tree* tree);	// @@ should make tqt* a parameter.
+	~chunk_tree_loader();
+
+	void	sync_loader_thread();	// called by lod_chunk_tree::update(), to implement any changes that are ready.
+	void	request_chunk_load(lod_chunk* chunk, float urgency);
+	void	request_chunk_unload(lod_chunk* chunk);
+
+	// Call this to enable/disable the background loader thread.
+	void	set_use_loader_thread(bool use);
+
+	int	loader_thread();		// thread function!
+private:
+	void	start_loader_thread();
+	bool	loader_service_data();		// in loader thread
+	
+	struct pending_load_request
+	{
+		lod_chunk*	m_chunk;
+		float	m_priority;
+
+		pending_load_request() : m_chunk(NULL), m_priority(0.0f) {}
+		
+		pending_load_request(lod_chunk* chunk, float priority)
+			: m_chunk(chunk), m_priority(priority)
+		{
+		}
+
+		static int	compare(const void* r1, const void* r2)
+		// Comparison function for qsort.  Sort based on priority.
+		{
+			float	p1 = ((pending_load_request*) r1)->m_priority;
+			float	p2 = ((pending_load_request*) r2)->m_priority;
+			
+			if (p1 < p2) { return -1; }
+			else if (p1 > p2) { return 1; }
+			else { return 0; }
+		}
+	};
+
+	struct retire_info
+	// A struct that associates a chunk with its newly loaded
+	// data.  For communicating between m_loader_thread and the
+	// main thread.
+	{
+		lod_chunk*	m_chunk;
+		lod_chunk_data*	m_chunk_data;
+
+		retire_info() : m_chunk(0), m_chunk_data(0) {}
+	};
+
+	lod_chunk_tree*	m_tree;
+
+	// These two are for the main thread's use only.  For
+	// update()/update_texture() to communicate with
+	// sync_loader_thread().
+	vector<lod_chunk*>	m_unload_queue;
+	vector<pending_load_request>	m_load_queue;
+
+	vector<lod_chunk*>	m_unload_texture_queue;
+	vector<lod_chunk*>	m_load_texture_queue;
+
+	// These two are for the main thread to communicate with the
+	// loader thread & vice versa.
+#define REQUEST_BUFFER_SIZE 4
+	lod_chunk* volatile	m_request_buffer[REQUEST_BUFFER_SIZE];	// chunks waiting to be loaded; filled will NULLs otherwise.
+	retire_info volatile	m_retire_buffer[REQUEST_BUFFER_SIZE];	// chunks waiting to be united with their loaded data.
+
+	// Loader thread stuff.
+	thread m_loader_thread;
+	volatile bool	m_run_loader_thread;	// loader thread watches for this to go false, then exits.
+	mutex m_mutex;
 };
+
+chunk_tree_loader::chunk_tree_loader(lod_chunk_tree* tree)
+	: m_tree(tree),
+	  m_run_loader_thread(false)
+{
+	for (int i = 0; i < REQUEST_BUFFER_SIZE; i++)
+	{
+		m_request_buffer[i] = NULL;
+		m_retire_buffer[i].m_chunk = NULL;
+	}
+	start_loader_thread();
+}
+
+chunk_tree_loader::~chunk_tree_loader()
+{
+	// 停止所有线程
+	set_use_loader_thread(false);
+}
+
+void	chunk_tree_loader::start_loader_thread()
+// Initiate the loader thread, then return.
+{
+	m_run_loader_thread = true;
+
+	// Thunk to wrap loader_thread(), which is a member fn.
+	struct wrapper {
+		static int	thread_wrapper(void* loader)
+		{
+			return ((chunk_tree_loader*) loader)->loader_thread();
+		}
+	};
+	m_loader_thread = thread(wrapper::thread_wrapper, this);
+}
+
+void	chunk_tree_loader::set_use_loader_thread(bool use)
+// Call this to enable/disable the use of a background loader thread.
+// May take a moment of latency to return, since if the background
+// thread is active, then this function has to signal it and wait for
+// it to terminate.
+{
+	if (m_run_loader_thread) {
+		if (use) {
+			// We're already using the thread; nothing to do.
+			return;
+		}
+		else {
+			// Thread is running -- kill it.
+			m_run_loader_thread = false;
+			m_loader_thread.join();
+			return;
+		}
+	}
+	else {
+		if (use == false) {
+			// We're already not using the loader thread; nothing to do.
+			return;
+		} else {
+			// Thread is not running -- start it up.
+			start_loader_thread();
+		}
+	}
+}
+
+void	chunk_tree_loader::sync_loader_thread()
+// Call this periodically, to implement previously requested changes
+// to the lod_chunk_tree.  Most of the work in preparing changes is
+// done in a background thread, so this call is intended to be
+// low-latency.
+//
+// The chunk_tree_loader is not allowed to make any changes to the
+// lod_chunk_tree, except in this call.
+{
+	// mutex section
+	m_mutex.lock();
+	{
+		// Unload data.
+		for (int i = 0; i < m_unload_queue.size(); i++) {
+			lod_chunk*	c = m_unload_queue[i];
+			// Only unload the chunk if it's not currently in use.
+			// Sometimes a chunk will be marked for unloading, but
+			// then is still being used due to a dependency in a
+			// neighboring part of the hierarchy.  We want to
+			// ignore the unload request in that case.
+			if (c->m_parent != NULL
+			    && c->m_parent->m_split == false)
+			{
+				c->unload_data();
+			}
+		}
+		m_unload_queue.resize(0);
+
+		// Retire any serviced requests.
+		{for (int i = 0; i < REQUEST_BUFFER_SIZE; i++)
+		{
+			retire_info&	r = const_cast<retire_info&>(m_retire_buffer[i]);	// cast away 'volatile' (we're inside the mutex section)
+			if (r.m_chunk)
+			{
+				assert(r.m_chunk->m_data == NULL);
+
+				if (r.m_chunk->m_parent != NULL
+				    && r.m_chunk->m_parent->m_data == NULL)
+				{
+					// Drat!  Our parent data was unloaded, while we were
+					// being loaded.  Only thing to do is discard the newly loaded
+					// data, to avoid breaking an invariant.
+					// (No big deal; this situation is rare.)
+					delete r.m_chunk_data;
+				}
+				else
+				{
+					// Connect the chunk with its data!
+					r.m_chunk->m_data = r.m_chunk_data;
+				}
+			}
+			// Clear out this entry.
+			r.m_chunk = NULL;
+			r.m_chunk_data = NULL;
+		}}
+
+		//
+		// Pass new data requests to the loader thread.  Go in
+		// order of priority, and only take a few.
+		//
+
+		// Wipe out stale requests.
+		{for (int i = 0; i < REQUEST_BUFFER_SIZE; i++) {
+			m_request_buffer[i] = NULL;
+		}}
+
+		// Fill in new requests.
+		int	qsize = m_load_queue.size();
+		if (qsize > 0)
+		{
+			int	req_count = 0;
+
+			// Sort by priority.
+			qsort(&m_load_queue[0], qsize, sizeof(m_load_queue[0]), pending_load_request::compare);
+			{for (int i = 0; i < qsize; i++)
+			{
+				lod_chunk*	c = m_load_queue[qsize - 1 - i].m_chunk;	// Do the higher priority requests first.
+				// Must make sure the chunk wasn't just retired.
+				if (c->m_data == NULL
+				    && (c->m_parent == NULL || c->m_parent->m_data != NULL))
+				{
+					// Request this chunk.
+					m_request_buffer[req_count++] = c;
+					if (req_count >= REQUEST_BUFFER_SIZE) {
+						// We've queued up enough requests.
+						break;
+					}
+				}
+			}}
+		
+			m_load_queue.resize(0);	// forget this frame's requests; we'll generate a fresh list during the next update()
+		}
+	}
+	m_mutex.unlock();
+
+
+	if (m_run_loader_thread == false)
+	{
+		// Loader thread is not actually running (at client
+		// request, via set_use_loader_thread()), so instead,
+		// service any requests synchronously, right now.
+		int	count;
+		for (count = 0; count < 4; count++) {
+			bool	loaded = loader_service_data();
+			if (loaded == false) break;
+		}
+	}
+}
+
+void	chunk_tree_loader::request_chunk_load(lod_chunk* chunk, float urgency)
+// Request that the specified chunk have its data loaded.  May
+// take a while; data doesn't actually show up & get linked in
+// until some future call to sync_loader_thread().
+{
+	assert(chunk);
+	assert(chunk->m_data == NULL);
+
+	// Don't schedule for load unless our parent already has data.
+	if (chunk->m_parent == NULL
+	    || chunk->m_parent->m_data != NULL)
+	{
+		m_load_queue.push_back(pending_load_request(chunk, urgency));
+		
+	}
+}
+
+
+void	chunk_tree_loader::request_chunk_unload(lod_chunk* chunk)
+// Request that the specified chunk have its data unloaded;
+// happens within short latency.
+{
+	m_unload_queue.push_back(chunk);
+}
+
+
+int	chunk_tree_loader::loader_thread()
+// Thread function for the loader thread.  Sit and load chunk data
+// from the request queue, until we get killed.
+{
+	while (m_run_loader_thread == true)
+	{
+		bool	loaded = false;
+		loaded = loader_service_data() || loaded;
+
+		if (loaded == false)
+		{
+			// We seem to be dormant; sleep for a while
+			// and then check again.
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		}
+	}
+
+	return 0;
+}
+
+
+bool	chunk_tree_loader::loader_service_data()
+// Service a request for data.  Return true if we actually serviced
+// anything; false if there was nothing to service.
+{
+	// Grab a request.
+	lod_chunk*	chunk_to_load = NULL;
+	m_mutex.lock();
+	{
+		// Get first request that's not already in the
+		// retire buffer.
+		for (int req = 0; req < REQUEST_BUFFER_SIZE; req++)
+		{
+			chunk_to_load = m_request_buffer[0];	// (could be NULL)
+
+			// shift requests down.
+			int	i;
+			for (i = 0; i < REQUEST_BUFFER_SIZE - 1; i++)
+			{
+				m_request_buffer[i] = m_request_buffer[i + 1];
+			}
+			m_request_buffer[i] = NULL;	// fill empty slot with NULL
+
+			if (chunk_to_load == NULL) break;
+			
+			// Make sure the request is not in the retire buffer.
+			bool	in_retire_buffer = false;
+			{for (int i = 0; i < REQUEST_BUFFER_SIZE; i++) {
+				if (m_retire_buffer[i].m_chunk == chunk_to_load) {
+					// This request has already been serviced.  Don't
+					// service it again.
+					chunk_to_load = NULL;
+					in_retire_buffer = true;
+					break;
+				}
+			}}
+			if (in_retire_buffer == false) break;
+		}
+	}
+	m_mutex.unlock();
+
+	if (chunk_to_load == NULL)
+	{
+		// There's no request to service right now.
+		return false;
+	}
+
+	assert(chunk_to_load->m_data == NULL);
+	assert(chunk_to_load->m_parent == NULL || chunk_to_load->m_parent->m_data != NULL);
+	
+	// Service the request by loading the chunk's data.  This
+	// could take a while, and involves waiting on IO, so we do it
+	// with the mutex unlocked so the main update/render thread
+	// can hopefully get some work done.
+	lod_chunk_data*	loaded_data = NULL;
+
+
+	//TODO 需要修改，修改读入数据方式。/
+	// Geometry.
+	
+	// SDL_RWseek(m_source_stream, chunk_to_load->m_data_file_position, SEEK_SET);
+	// loaded_data = new lod_chunk_data(m_source_stream);
+
+	// "Retire" the request.  Must do this with the mutex locked.
+	// The main thread will do "chunk_to_load->m_data = loaded_data".
+	m_mutex.lock();
+	{
+		for (int i = 0; i < REQUEST_BUFFER_SIZE; i++)
+		{
+			if (m_retire_buffer[i].m_chunk == 0)
+			{
+				// empty slot; put the info here.
+				m_retire_buffer[i].m_chunk = chunk_to_load;
+				m_retire_buffer[i].m_chunk_data = loaded_data;
+				break;
+			}
+		}
+		// TODO: assert if we didn't find a retire slot!
+		// (there should always be one, because it's as big as
+		// the request queue)
+	}
+	m_mutex.unlock();
+
+	return true;
+}
+
 
 /*
  ----------------------------------------------------------------------------------------------------
  ----------------------------------------------------------------------------------------------------
 */
 
-static void	morph_vertices(float* verts, const vertex_info& morph_verts, const vec3& box_center, const vec3& box_extent, float f)
-// Adjust the positions of our morph vertices according to f, the
-// given morph parameter.  verts is the output buffer for processed
-// verts.
-//
-// The input is in chunk-local 16-bit signed coordinates.  The given
-// box_center/box_extent parameters are used to produce the correct
-// world-space coordinates.  The quantizing to 16 bits is a way to
-// compress the input data.
-//
-// @@ This morphing/decompression functionality should be shifted into
-// a vertex program for the GPU where possible.
-{
-	// Do quantization decompression, output floats.
-
-	const float	sx = box_extent.x() / (1 << 14);
-	const float	sz = box_extent.z() / (1 << 14);
-
-	const float	offsetx = box_center.x();
-	const float	offsetz = box_center.z();
-
-	const float	one_minus_f = (1.0f - f);
-
-	for (int i = 0; i < morph_verts.vertex_count; i++) {
-		const vertex_info::vertex&	v = morph_verts.vertices[i];
-		verts[i*3 + 0] = offsetx + v.x[0] * sx;
-		verts[i*3 + 1] = (v.x[1] + v.y_delta * one_minus_f) * s_vertical_scale;	// lerp the y value of the vert.
-		verts[i*3 + 2] = offsetz + v.x[2] * sz;
-	}
-#if 0
-	// With a vshader, this routine would be replaced by an initial agp_alloc() & memcpy()/memmap().
-#endif // 0
-}
 
 static void	count_chunk_stats(lod_chunk* c)
 // Add up stats from c and its descendents.
@@ -292,7 +660,6 @@ void	lod_chunk::clear()
 	}
 }
 
-
 void	lod_chunk::update(lod_chunk_tree* tree, const vec3& viewpoint)
 // Computes 'lod' and split values for this chunk and its subtree,
 // based on the given camera parameters and the parameters stored in
@@ -327,7 +694,7 @@ void	lod_chunk::update(lod_chunk_tree* tree, const vec3& viewpoint)
 		// We're good... this chunk can represent its region within the max error tolerance.
 		if ((m_lod & 0xFF00) == 0) {
 			// Root chunk -- make sure we have valid morph value.
-			//m_lod = iclamp(desired_lod, m_lod & 0xFF00, m_lod | 0x0FF);
+			m_lod = iclamp(desired_lod, m_lod & 0xFF00, m_lod | 0x0FF);
 
 			assert((m_lod >> 8) == m_level);
 		}
@@ -376,7 +743,7 @@ void	lod_chunk::do_split(lod_chunk_tree* tree, const vec3& viewpoint)
 				vec3	box_center, box_extent;
 				c->compute_bounding_box(*tree, &box_center, &box_extent);
 				uint16_t desired_lod = tree->compute_lod(box_center, box_extent, viewpoint);
-				//c->m_lod = iclamp(desired_lod, c->m_lod & 0xFF00, c->m_lod | 0x0FF);
+				c->m_lod = iclamp(desired_lod, c->m_lod & 0xFF00, c->m_lod | 0x0FF);
 			}}
 		}
 
@@ -412,7 +779,7 @@ bool	lod_chunk::can_split(lod_chunk_tree* tree)
 	{for (int i = 0; i < 4; i++) {
 		lod_chunk*	c = m_children[i];
 		if (c->has_resident_data() == false) {
-			//tree->m_loader->request_chunk_load(c, 1.0f);
+			tree->m_loader->request_chunk_load(c, 1.0f);
 			can_split = false;
 		}
 	}}
@@ -518,7 +885,7 @@ void	lod_chunk::request_unload_subtree(lod_chunk_tree* tree)
 			}
 		}
 
-		//tree->m_loader->request_chunk_unload(this);
+		tree->m_loader->request_chunk_unload(this);
 	}
 }
 
@@ -585,7 +952,7 @@ void lod_chunk::read(lod_chunk_tree* tree,int recurse_count) {
 	}
 }
 
-LOD::LOD(std::shared_ptr<Loader>loader):Accelerator(loader){
+LOD::LOD():Accelerator(){
 	// 读入设定参数
 	// 暂时未确定如何读取
 	m_tree_depth;
@@ -612,30 +979,70 @@ LOD::LOD(std::shared_ptr<Loader>loader):Accelerator(loader){
 	m_chunks[0].lookup_neighbors(this);
 
 	// 创建loader
-	m_loader = new chunk_tree_loader;
+	m_loader = new chunk_tree_loader(this);
 }
 
-void LOD::onCameraCreate(std::shared_ptr<Camera>){
-=======
-void LOD::onCameraCreate(std::shared_ptr<Camera>) {
->>>>>>> 0cd6363a0a19dc139fca1955b83182ad9e67b373
+
+void LOD::onCameraUpdate(const Mesh& mesh,std::shared_ptr<Camera>) {
     //TODO
 }
 
-void LOD::onCameraUpdate(std::shared_ptr<Camera>) {
+vector<Triangle> LOD::simplify() {
     //TODO
-}
 
-std::shared_ptr<MeshData> LOD::simplify() {
-    //TODO
-    return NULL;
 }
 
 void LOD::build(std::shared_ptr<Camera>) {
     //TODO
 }
 
-bool LOD::covered(AABB, std::shared_ptr<Camera>) const {
+bool LOD::covered() const {
     //TODO
     return false;
+}
+
+void	lod_chunk_tree::set_parameters(float max_pixel_error, float screen_width_pixels, float horizontal_FOV_degrees)
+// Initializes some internal parameters which are used to compute
+// which chunks are split during update().
+//
+// Given a screen width and horizontal field of view, the
+// lod_chunk_tree when properly updated guarantees a screen-space
+// vertex error of no more than max_pixel_error (at the center of the
+// viewport) when rendered.
+{
+	assert(max_pixel_error > 0);
+	assert(screen_width_pixels > 0);
+	assert(horizontal_FOV_degrees > 0 && horizontal_FOV_degrees < 180.0f);
+
+	const float	tan_half_FOV = tanf(0.5f * horizontal_FOV_degrees * (float) M_PI / 180.0f);
+	const float	K = screen_width_pixels / tan_half_FOV;
+
+	// distance_LODmax is the distance below which we need to be
+	// at the maximum LOD.  It's used in compute_lod(), which is
+	// called by the chunks during update().
+	m_distance_LODmax = (m_error_LODmax / max_pixel_error) * K;
+}
+
+void	lod_chunk_tree::set_use_loader_thread(bool use)
+// Enables or disables loading of chunk data in the background.
+{
+	m_loader->set_use_loader_thread(use);
+}
+
+uint16_t lod_chunk_tree::compute_lod(const vec3& center, const vec3& extent, const vec3& viewpoint) const
+// Given an AABB and the viewpoint, this function computes a desired
+// LOD level, based on the distance from the viewpoint to the nearest
+// point on the box.  So, desired LOD is purely a function of
+// distance and the chunk tree parameters.
+{
+	vec3	disp = viewpoint - center;
+	disp[0] = std::max(0.0f, std::abs(disp[0]) - extent[0]);
+	disp[1] = std::max(0.0f, std::abs(disp[1]) - extent[1]);
+	disp[2] = std::max(0.0f, std::abs(disp[2]) - extent[2]);
+//	disp.set(1, 0);	//xxxxxxx just do calc in 2D, for debugging
+
+	float	d = 0;
+	d = disp.norm();
+
+	return iclamp(((m_tree_depth << 8) - 1) - int(log2(fmax(1, d / m_distance_LODmax)) * 256), 0, 0x0FFFF);
 }

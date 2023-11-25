@@ -21,10 +21,8 @@ protected:
 
     std::vector<std::shared_ptr<CameraListener>> listeners;
 
-    // 获取右向量，该向量应垂直于z轴
-    Eigen::Vector4f rightDirection();
-
     void notifyListeners();
+
 public:
     Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov);
 
@@ -42,15 +40,27 @@ public:
 
     float getFov() { return fov; }
 
+    // 获取相机的方向向量
+    Eigen::Vector4f getCameraDirection();
+
+    // 获取 right 向量 (与 z 垂直)
+    Eigen::Vector4f rightDirection();
+
     void registerListener(const std::shared_ptr<CameraListener> &listener);
 
     void moveForward(float distance);
 
     void moveRight(float distance);
 
+    void moveHigher(float distance);
+
     void rotatePrecession(float radius);
 
     void rotateNutation(float radius);
+
+    Eigen::Matrix4f toCameraMatrix();
+
+    Eigen::Matrix4f toWorldMatrix();
 };
 
 

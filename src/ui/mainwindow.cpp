@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->fileDialogButton, &QPushButton::clicked, [=]() {
-        QString sceneFileString = QFileDialog::getOpenFileName(this, "选取场景", "/");
+        QString sceneFileString = QFileDialog::getOpenFileName(this, "选取场景", "../");
         if (sceneFileString.isEmpty()) {
             return;
         }
@@ -30,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
         auto scene = Scene::deserialize(sceneJson);
         ui->displayWidget->setScene(scene);
         ui->currSceneName->setText(QString::fromStdString(scene->getName()));
+
+        ui->displayWidget->update();
     });
-    
-    ui->displayWidget->update();
 }
 
 MainWindow::~MainWindow() {

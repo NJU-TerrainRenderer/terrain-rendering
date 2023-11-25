@@ -1,26 +1,22 @@
 #pragma once
 
-<<<<<<< HEAD
-class LOD:Accelerator{
-    public:
-	LOD(std::shared_ptr<Loader>loader);
-=======
 #include "Accelerator.h"
 
 class LOD : Accelerator {
 public:
->>>>>>> 0cd6363a0a19dc139fca1955b83182ad9e67b373
-    virtual void onCameraCreate(std::shared_ptr<Camera>) override;
+	LOD();
 
-    virtual void onCameraUpdate(std::shared_ptr<Camera>) override;
+    virtual void onCameraUpdate(const MeshData& mesh,std::shared_ptr<Camera>) override;
 
-    virtual std::shared_ptr<MeshData> simplify() override;
-<<<<<<< HEAD
+    virtual vector<Triangle> simplify() override;
     virtual void build(std::shared_ptr<Camera>)override;
-    virtual bool covered(AABB, std::shared_ptr<Camera>)const override;
-
+    virtual bool covered()const override;
+	
+	
+	void	set_parameters(float max_pixel_error, float screen_width, float horizontal_FOV_degrees);
+	void	get_bounding_box(vec3* box_center, vec3* box_extent);
 	uint16_t compute_lod(const vec3& center, const vec3& extent, const vec3& viewpoint) const;
-
+	void	set_use_loader_thread(bool use);
 //data:
     lod_chunk*	m_chunks;
 	int	m_chunks_allocated;
@@ -33,10 +29,4 @@ public:
 	int	m_chunk_count;
 	lod_chunk**	m_chunk_table;
 	chunk_tree_loader*	m_loader;
-=======
-
-    virtual void build(std::shared_ptr<Camera>) override;
-
-    virtual bool covered(AABB, std::shared_ptr<Camera>) const override;
->>>>>>> 0cd6363a0a19dc139fca1955b83182ad9e67b373
 };

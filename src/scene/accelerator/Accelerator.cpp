@@ -31,8 +31,8 @@ void Accelerator::getFieid(
     //Step1，计算相机坐标系的旋转矩阵
     //假设实现了相机的toLoacl和toWorld，希望相机能实现这个函数
     //这里假设相机的Local坐标系中 foward = (0,1,0,0), right = (1,0,0,0), up = (0,0,1,0)
-    auto worldToLocal = Camera.toLoacl();
-    auto localToWorld = Camera.toWorld();
+    auto worldToLocal = camera.toLoacl();
+    auto localToWorld = camera.toWorld();
     //Step2，根据相机fov信息，获取相机视野的四条射线的方向
     auto d = tan(fov / 2);
     auto h = d / sqrt(1 + aspect * aspect);

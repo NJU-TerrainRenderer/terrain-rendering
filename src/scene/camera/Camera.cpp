@@ -23,6 +23,11 @@ void Camera::moveRight(float distance) {
     notifyListeners();
 }
 
+void Camera::moveHigher(float distance) {
+    position += Eigen::Vector4f(0, 0, 1, 0) * distance;
+    notifyListeners();
+}
+
 std::shared_ptr<Camera> Camera::deserialize(Json json) {
     Eigen::Vector4f position, direction;
     position << json["position"][0], json["position"][1], json["position"][2], 1;
@@ -34,6 +39,10 @@ std::shared_ptr<Camera> Camera::deserialize(Json json) {
 Eigen::Vector4f Camera::rightDirection() {
     Eigen::Vector4f right = {direction[1], -direction[0], 0, 0};
     return right.normalized();
+}
+
+Eigen::Vector4f Camera::getCameraDirection() {
+    return getDirection().normalized();
 }
 
 void Camera::rotatePrecession(float radius) {
@@ -66,7 +75,26 @@ void Camera::rotateNutation(float radius) {
 }
 
 void Camera::notifyListeners() {
-    for (const std::shared_ptr<CameraListener>& listener: listeners) {
+    for (const std::shared_ptr<CameraListener> &listener: listeners) {
         listener->onCameraUpdate(shared_from_this());
     }
+}
+
+Eigen::Matrix4f Camera::toCameraMatrix() {
+    Eigen::Vector3f eye = position.head<3>();
+    Eigen::Vector3f f = direction.head<3>().normalized();
+    Eigen::Vector3f r = rightDirection().head<3>();
+    Eigen::Vector3f u = r.cross(f).normalized();
+
+    Eigen::Matrix4f viewMatrix;
+    viewMatrix << r.x(), r.y(), r.z(), -r.dot(eye),
+            u.x(), u.y(), u.z(), -u.dot(eye),
+            -f.x(), -f.y(), -f.z(), f.dot(eye),
+            0.0f, 0.0f, 0.0f, 1.0f;
+
+    return viewMatrix;
+}
+
+Eigen::Matrix4f Camera::toWorldMatrix() {
+    return toCameraMatrix().reverse();
 }

@@ -3,6 +3,7 @@
 //
 
 #include "Element.h"
+#include "Mesh.h"
 #include "Triangle.h"
 
 std::shared_ptr<Element> Element::getElementFromJson(Json json) {
@@ -12,9 +13,9 @@ std::shared_ptr<Element> Element::getElementFromJson(Json json) {
     if (type == "triangle") {
         element = std::make_shared<Triangle>();
     }
-//    else if (type == "mesh") {
-//        element = std::make_shared<Mesh>();
-//    }
+    else if (type == "mesh") {
+        element = std::make_shared<Mesh>();
+    }
     else {
         return element;
     }

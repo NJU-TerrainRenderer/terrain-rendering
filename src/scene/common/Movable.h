@@ -15,6 +15,12 @@ public:
     virtual void moveTo(Eigen::Vector4f &newPosition);
 
 //    virtual void pointAt(Eigen::Vector4f &newDirection);
+    Eigen::Vector4f getPosition(){
+        return position;
+    }
+    Eigen::Vector4f getDirection(){
+        return direction;
+    }
 
 protected:
     Movable() = default;
