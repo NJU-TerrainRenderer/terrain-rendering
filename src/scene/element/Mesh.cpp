@@ -40,8 +40,8 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	GDALAllRegister();
 	GDALDataset* poDataset;
 
-	CGAL::Point_set_3<Point_3> points;
-	TIN dsm0(points.points().begin(), points.points().end());
+	//CGAL::Point_set_3<Point_3> points;
+	//TIN dsm0(points.points().begin(), points.points().end());
 
 	poDataset = (GDALDataset*)GDALOpen(MeshPath, GA_ReadOnly);
 	if (poDataset == NULL) {
