@@ -43,10 +43,12 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 	//CGAL::Point_set_3<Point_3> points;
 	//TIN dsm0(points.points().begin(), points.points().end());
 
+	vector<int> height;
+
 	poDataset = (GDALDataset*)GDALOpen(MeshPath, GA_ReadOnly);
 	if (poDataset == NULL) {
 		cout << "The file cannot be opened" << endl;
-		return dsm0;
+		return height;
 	}
 
 	int nImgSizeX = ImgSizeX;
@@ -77,14 +79,13 @@ vector<int> MeshData::GetMesh(int x1, int y1, int x2, int y2) {
 
 	if (x1 < 0 || x1 >= nImgSizeX || y1 < 0 || y1 >= nImgSizeY) {
 		cout << "coordinate out of range" << endl;
-		return dsm0;
+		return height;
 	}
 	if (x2 < 0 || x2 >= nImgSizeX || y2 < 0 || y2 >= nImgSizeY) {
 		cout << "coordinate out of range" << endl;
-		return dsm0;
+		return height;
 	}
 
-	vector<int> height;
 
 	for (int i = x1; i <= x2; i++) {
 		for (int j = y1; j <= y2; j++) {
