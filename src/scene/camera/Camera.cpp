@@ -3,12 +3,13 @@
 //
 
 #include "Camera.h"
+#define M_PI_2     1.57079632679489661923   // pi/2
 
-Camera::Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov)
-        : Movable(position, direction),
-          fov(fov) {}
+Camera::Camera(const Eigen::Vector4f& position, const Eigen::Vector4f& direction, float fov)
+    : Movable(position, direction),
+    fov(fov) {}
 
-void Camera::registerListener(const std::shared_ptr<CameraListener> &listener) {
+void Camera::registerListener(const std::shared_ptr<CameraListener>& listener) {
     listeners.push_back(listener);
     listener->onCameraUpdate(shared_from_this());
 }
@@ -37,7 +38,7 @@ std::shared_ptr<Camera> Camera::deserialize(Json json) {
 }
 
 Eigen::Vector4f Camera::rightDirection() {
-    Eigen::Vector4f right = {direction[1], -direction[0], 0, 0};
+    Eigen::Vector4f right = { direction[1], -direction[0], 0, 0 };
     return right.normalized();
 }
 
@@ -48,9 +49,9 @@ Eigen::Vector4f Camera::getCameraDirection() {
 void Camera::rotatePrecession(float radius) {
     Eigen::Matrix4f rotation;
     rotation << cosf(radius), -sinf(radius), 0, 0,
-            sinf(radius), cosf(radius), 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1;
+        sinf(radius), cosf(radius), 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1;
     direction = (rotation * direction).normalized();
     notifyListeners();
 }
@@ -68,14 +69,14 @@ void Camera::rotateNutation(float radius) {
         return;
     }
 
-    direction << cosf(afterNutationRadius) * direction[0] / r, cosf(afterNutationRadius) * direction[1] / r,
-            sinf(afterNutationRadius), 0;
+    direction << cosf(afterNutationRadius) * direction[0] / r, cosf(afterNutationRadius)* direction[1] / r,
+        sinf(afterNutationRadius), 0;
     direction = direction.normalized();
     notifyListeners();
 }
 
 void Camera::notifyListeners() {
-    for (const std::shared_ptr<CameraListener> &listener: listeners) {
+    for (const std::shared_ptr<CameraListener>& listener : listeners) {
         listener->onCameraUpdate(shared_from_this());
     }
 }
@@ -88,9 +89,9 @@ Eigen::Matrix4f Camera::toCameraMatrix() {
 
     Eigen::Matrix4f viewMatrix;
     viewMatrix << r.x(), r.y(), r.z(), -r.dot(eye),
-            u.x(), u.y(), u.z(), -u.dot(eye),
-            -f.x(), -f.y(), -f.z(), f.dot(eye),
-            0.0f, 0.0f, 0.0f, 1.0f;
+        u.x(), u.y(), u.z(), -u.dot(eye),
+        -f.x(), -f.y(), -f.z(), f.dot(eye),
+        0.0f, 0.0f, 0.0f, 1.0f;
 
     return viewMatrix;
 }

@@ -5,7 +5,7 @@
 class Plain : Accelerator {
     int init = false;
 public:
-    virtual void onCameraUpdate(const MeshData& mesh,std::shared_ptr<Camera>) override;
+    virtual void onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>) override;
 
     virtual vector<Triangle> simplify() override;
 

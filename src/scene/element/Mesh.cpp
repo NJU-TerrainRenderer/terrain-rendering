@@ -1,7 +1,13 @@
 ﻿#include "Mesh.h"
-#include "accelerator/Accelerator.h"
-#include "accelerator/Plain.h"
-#include "accelerator/LOD.h"
+#include "../accelerator/Accelerator.h"
+#include "../accelerator/Plain.h"
+#include "../accelerator/LOD.h"
+#include <iostream>
+using  std::cout;
+using std::endl;
+#include <gdal.h>
+#include <gdal_priv.h>
+
 
 Mesh::Mesh(char* path) {
 	MeshPath = path;
@@ -38,18 +44,12 @@ GDALDataset* createRaster(char* filename, int nRow, int nCol, GDALDataType type)
 	return ds;
 }
 
-vector<int> Mesh::getData(int x1, int y1, int x2, int y2) {
+vector<int> Mesh::getData(int x1, int y1, int x2, int y2) const{
 	GDALAllRegister();
 	GDALDataset* poDataset;
 
-	CGAL::Point_set_3<Point_3> points;
-	TIN dsm0(points.points().begin(), points.points().end());
-
 	poDataset = (GDALDataset*)GDALOpen(MeshPath, GA_ReadOnly);
-	if (poDataset == NULL) {
-		cout << "The file cannot be opened" << endl;
-		return dsm0;
-	}
+
 
 	int nImgSizeX = ImgSizeX;
 	int nImgSizeY = ImgSizeY;
@@ -77,15 +77,6 @@ vector<int> Mesh::getData(int x1, int y1, int x2, int y2) {
 
 	int num_image_size = 0;
 
-	if (x1 < 0 || x1 >= nImgSizeX || y1 < 0 || y1 >= nImgSizeY) {
-		cout << "coordinate out of range" << endl;
-		return dsm0;
-	}
-	if (x2 < 0 || x2 >= nImgSizeX || y2 < 0 || y2 >= nImgSizeY) {
-		cout << "coordinate out of range" << endl;
-		return dsm0;
-	}
-
 	vector<int> height;
 
 	for (int i = x1; i <= x2; i++) {
@@ -111,15 +102,15 @@ vector<int> Mesh::getData(int x1, int y1, int x2, int y2) {
 	return height;
 }
 
-void Mesh::deserializeFrom(Json json) override{
+void Mesh::deserializeFrom(Json json) {
 	std::string AcceleratorType = json["accelerator"];
 	if (AcceleratorType == "plain") {
-		accelerator = std::make_shared<Plain>();
+		accelerator = std::dynamic_pointer_cast<Accelerator>(std::make_shared<Plain>());
 	}
 	else if (AcceleratorType == "LOD") {
-		accelerator = std::make_shared<LOD>();
+		
 	} else{
-		accelerator = std::make_shared<Plain>();
+		accelerator = std::dynamic_pointer_cast<Accelerator>(std::make_shared<Plain>());
 	}
 }
 

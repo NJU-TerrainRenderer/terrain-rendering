@@ -1,12 +1,12 @@
 #pragma once
-
+/*
 #include "Accelerator.h"
 
 class LOD : Accelerator {
 public:
 	LOD();
 
-    virtual void onCameraUpdate(const MeshData& mesh,std::shared_ptr<Camera>) override;
+    virtual void onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>) override;
 
     virtual vector<Triangle> simplify() override;
     virtual void build(std::shared_ptr<Camera>)override;
@@ -30,3 +30,4 @@ public:
 	lod_chunk**	m_chunk_table;
 	chunk_tree_loader*	m_loader;
 };
+*/

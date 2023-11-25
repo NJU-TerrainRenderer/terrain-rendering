@@ -1,4 +1,5 @@
 #include "Plain.h"
+#include "../element/Mesh.h"
 
 static int getIndex(int minx,int maxx,int miny,int maxy, int curx, int cury) {
     int y = cury - miny;
@@ -8,7 +9,7 @@ static int getIndex(int minx,int maxx,int miny,int maxy, int curx, int cury) {
     return index;
 }
 
-void Plain::onCameraUpdate(const Mesh& mesh,std::shared_ptr<Camera>camera) {
+void Plain::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>camera) {
     if(init == false || !covered()) {
         //获取相机位置信息
         init = true;
@@ -26,9 +27,9 @@ void Plain::onCameraUpdate(const Mesh& mesh,std::shared_ptr<Camera>camera) {
                 int dir[][2] = {{0,0},{0,1},{1,0},{1,1}};
                 for(int k = 0; k < 4;k++) {
                     int idx = getIndex(minx,maxx,miny,maxy,i+dir[k][0],j+dir[k][1]);
-                    points[k].x = i + dir[k][0];
-                    points[k].y = j + dir[k][1]; 
-                    points[k].z = data[idx];
+                    points[k].x() = i + dir[k][0];
+                    points[k].y() = j + dir[k][1]; 
+                    points[k].z() = data[idx];
                 }
                 Triangle t1(points[0],points[1],points[2]);
                 Triangle t2(points[1],points[2],points[3]);

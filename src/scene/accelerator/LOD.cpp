@@ -1,4 +1,5 @@
 #include "LOD.h"
+#ifdef LOD
 #include <thread>
 #include <mutex>
 #include <vector>
@@ -983,7 +984,7 @@ LOD::LOD():Accelerator(){
 }
 
 
-void LOD::onCameraUpdate(const Mesh& mesh,std::shared_ptr<Camera>) {
+void LOD::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>) {
     //TODO
 }
 
@@ -1046,3 +1047,4 @@ uint16_t lod_chunk_tree::compute_lod(const vec3& center, const vec3& extent, con
 
 	return iclamp(((m_tree_depth << 8) - 1) - int(log2(fmax(1, d / m_distance_LODmax)) * 256), 0, 0x0FFFF);
 }
+#endif

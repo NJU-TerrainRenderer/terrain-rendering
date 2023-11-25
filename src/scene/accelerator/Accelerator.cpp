@@ -5,17 +5,16 @@ void Accelerator::getFieid(
     std::shared_ptr<Camera> camera, 
     float& xmin, float& xmax, float& ymin, float& ymax) 
 {
-    auto position = camera->position;
+    auto position = camera->getPosition();
     auto z = position[2];
 
-    auto forward = camera->direction;
+    auto forward = camera->getDirection();
     auto right = camera->rightDirection();
-    auto up = forward.cross(right);
 
     //获取相机视野信息
-    auto fov = camera->fov; //弧度制
-    auto width = camera->width;
-    auto height = camera->height;
+    auto fov = camera->getFov(); //弧度制
+    auto width = camera->getWidth();
+    auto height = camera->getHeight();
 
     //希望这个信息能提前处理好
     auto aspect = width / height;    
@@ -24,15 +23,15 @@ void Accelerator::getFieid(
     xmin = position[0]-100, xmax = position[0]+100;
     ymin = position[1]-100, ymax = position[1]+100;
     //最小值不能小于0
-    xmin = max(xmin, 0.0f);
-    ymin = max(ymin, 0.0f);
+    xmin = std::max(xmin, 0.0f);
+    ymin = std::max(ymin, 0.0f);
 
     //预估相机视野范围，计算相机视线和z=0平面的交点
     //Step1，计算相机坐标系的旋转矩阵
     //假设实现了相机的toLoacl和toWorld，希望相机能实现这个函数
     //这里假设相机的Local坐标系中 foward = (0,1,0,0), right = (1,0,0,0), up = (0,0,1,0)
-    auto worldToLocal = camera.toLoacl();
-    auto localToWorld = camera.toWorld();
+    auto worldToLocal = camera->toCameraMatrix();
+    auto localToWorld = camera->toWorldMatrix();
     //Step2，根据相机fov信息，获取相机视野的四条射线的方向
     auto d = tan(fov / 2);
     auto h = d / sqrt(1 + aspect * aspect);

@@ -8,6 +8,7 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
 set(Eigen3_DIR "./dependencies/Eigen3.4.0/share/eigen3/cmake")
+set(GDAL_DIR "./dependencies/warmerda/bld")
 set(JSON_DIR "./dependencies/JSON")
 
 find_package(Qt5 COMPONENTS

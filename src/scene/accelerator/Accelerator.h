@@ -1,10 +1,9 @@
 #pragma once
+#include <vector>
+using std::vector;
 
 #include "../camera/Camera.h"
 #include "../element/Triangle.h"
-#include <vector>
-using std::vector;
-#include "../element/Mesh.h"
 
 class Mesh;
 
@@ -25,7 +24,7 @@ public:
 
     //其他模块的信号，声明这里要有更新操作，需要根据Camera的最新情况，更新rawMesh的范围，暂时不确定是否需要具体Event
 
-    virtual void onCameraUpdate(const Mesh& mesh,std::shared_ptr<Camera>) = 0;
+    virtual void onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>) = 0;
 
     virtual void build(std::shared_ptr<Camera>) = 0; //建立or更新数据结构。
     virtual vector<Triangle> simplify() = 0;  //利用数据结构对rawMesh化简。

@@ -1,11 +1,7 @@
 #pragma once
-#include"accelerator/Accelerator.h"
+#include"../accelerator/Accelerator.h"
 #include <iostream>
 #include<vector>
-
-
-#include <gdal.h>
-#include <gdal_priv.h>
 
 
 typedef int BYTE;
@@ -18,14 +14,14 @@ public:
 	Mesh() {};
 	int GetImgSizeX();
 	int GetImgSizeY();
-	vector<int> getData(int x1, int y1, int x2, int y2);//这个改成加速结构获取数据
+	vector<int> getData(int x1, int y1, int x2, int y2) const;//这个改成加速结构获取数据
 
-	void onCameraUpdate(std::shared_ptr<Camera>) {
-		accelerator->onCameraUpdate(camera);
+	void onCameraUpdate(std::shared_ptr<Camera> camera) {
+		accelerator->onCameraUpdate(this, camera);
 	};
 
-	vector<Triangle> getMesh() {
-		return accelerator->getMesh();
+	std::shared_ptr<vector<Triangle>> getMesh() {
+		return std::make_shared<vector<Triangle>>(accelerator->getMesh());
 	}//加速结构从这里获取数据
 
 	void deserializeFrom(Json json) override;

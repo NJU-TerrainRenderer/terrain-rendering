@@ -24,7 +24,7 @@ protected:
     void notifyListeners();
 
 public:
-    Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov);
+    Camera(const Eigen::Vector4f& position, const Eigen::Vector4f& direction, float fov);
 
     static std::shared_ptr<Camera> deserialize(Json json);
 
@@ -46,7 +46,7 @@ public:
     // 获取 right 向量 (与 z 垂直)
     Eigen::Vector4f rightDirection();
 
-    void registerListener(const std::shared_ptr<CameraListener> &listener);
+    void registerListener(const std::shared_ptr<CameraListener>& listener);
 
     void moveForward(float distance);
 
