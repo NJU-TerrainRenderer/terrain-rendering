@@ -2,7 +2,7 @@
 /*
 #include "Accelerator.h"
 
-class LOD : Accelerator {
+class LOD : public Accelerator {
 public:
 	LOD();
 

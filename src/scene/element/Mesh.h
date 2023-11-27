@@ -12,8 +12,8 @@ class Mesh : public Element {
 public:
 	Mesh(char* path);
 	Mesh() {};
-	int GetImgSizeX();
-	int GetImgSizeY();
+	int GetImgSizeX() const;
+	int GetImgSizeY() const;
 	vector<int> getData(int x1, int y1, int x2, int y2) const;//这个改成加速结构获取数据
 
 	void onCameraUpdate(std::shared_ptr<Camera> camera) {
@@ -25,6 +25,7 @@ public:
 	}//加速结构从这里获取数据
 
 	void deserializeFrom(Json json) override;
+	void Mesh::meshInit(std::string);
 	//TODO()
 
 	//Mesh(std::vector<Triangle>triangles);

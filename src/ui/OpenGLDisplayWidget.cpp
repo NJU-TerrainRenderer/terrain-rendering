@@ -96,7 +96,7 @@ void OpenGLDisplayWidget::paintGL() {
             glColor3f(fabs(normal[0]), fabs(normal[1]), fabs(normal[2]));
             auto vertices = triangle.getVertices();
             for (auto &vertex: *vertices) {
-                std::cout << "绘制点：" << vertex[0] << " " << vertex[1] << " " << vertex[2] << std::endl;
+                std::cout << "Draw Point:" << vertex[0] << " " << vertex[1] << " " << vertex[2] << std::endl;
                 glVertex3f(vertex[0], vertex[1], vertex[2]);
             }
             glEnd();

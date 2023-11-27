@@ -8,6 +8,21 @@ using std::endl;
 #include <gdal.h>
 #include <gdal_priv.h>
 
+void Mesh::meshInit(std::string path) {
+	MeshPath = new char[32];
+	strcpy(MeshPath, path.c_str());
+	GDALAllRegister();
+	GDALDataset* poDataset;
+
+	poDataset = (GDALDataset*)GDALOpen(MeshPath, GA_ReadOnly);
+	if (poDataset == NULL) {
+		cout << "The file cannot be opened" << endl;
+		return;
+	}
+
+	ImgSizeX = poDataset->GetRasterXSize();
+	ImgSizeY = poDataset->GetRasterYSize();
+}
 
 Mesh::Mesh(char* path) {
 	MeshPath = path;
@@ -24,10 +39,10 @@ Mesh::Mesh(char* path) {
 	ImgSizeY = poDataset->GetRasterYSize();
 }
 
-int Mesh::GetImgSizeX() {
+int Mesh::GetImgSizeX() const {
 	return ImgSizeX;
 }
-int Mesh::GetImgSizeY() {
+int Mesh::GetImgSizeY() const {
 	return ImgSizeY;
 }
 
@@ -103,14 +118,25 @@ vector<int> Mesh::getData(int x1, int y1, int x2, int y2) const{
 }
 
 void Mesh::deserializeFrom(Json json) {
-	std::string AcceleratorType = json["accelerator"];
-	if (AcceleratorType == "plain") {
-		accelerator = std::dynamic_pointer_cast<Accelerator>(std::make_shared<Plain>());
+	//获取加速结构信息
+	Json accJson = json["acceleretor"];
+	std::string acceleratorType = accJson["type"];
+	if (acceleratorType == "plain") {
+		std::shared_ptr<Plain> plainPtr = std::make_shared<Plain>();
+		accelerator = std::dynamic_pointer_cast<Accelerator>(plainPtr);
+		assert(accelerator != nullptr);
 	}
-	else if (AcceleratorType == "LOD") {
+	else if (acceleratorType == "LOD") {
 		
 	} else{
-		accelerator = std::dynamic_pointer_cast<Accelerator>(std::make_shared<Plain>());
+		std::shared_ptr<Plain> plainPtr = std::make_shared<Plain>();
+		accelerator = std::dynamic_pointer_cast<Accelerator>(plainPtr);
 	}
+	accelerator->deserializeFrom(accJson);
+	
+	//获取文件路径
+	std::string path = json["path"];
+	meshInit(path);
+	//其他参数暂时不需要?
 }
 

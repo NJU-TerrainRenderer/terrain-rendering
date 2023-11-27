@@ -10,11 +10,16 @@ static int getIndex(int minx,int maxx,int miny,int maxy, int curx, int cury) {
 }
 
 void Plain::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>camera) {
+    std::cout << "CameraUpdate in plain" << std::endl;
     if(init == false || !covered()) {
         //获取相机位置信息
         init = true;
         float minx, maxx, miny, maxy;
+        range_x = mesh->GetImgSizeX();
+        range_y = mesh->GetImgSizeY();
+
         getFieid(camera, minx, maxx, miny, maxy);
+        std::cout << minx << " " << maxx << " " << miny << " " << maxy << std::endl;
         //获取mesh信息
         auto data = mesh->getData(minx, maxx, miny, maxy);
         triangles_raw.clear();
