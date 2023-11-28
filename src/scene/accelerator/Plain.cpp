@@ -4,7 +4,7 @@
 static int getIndex(int minx,int maxx,int miny,int maxy, int curx, int cury) {
     int y = cury - miny;
     int x = curx - minx;
-    int length = maxx - minx + 1;
+    int length = maxy - miny + 1;
     int index = y + length * x;
     return index;
 }
@@ -14,14 +14,14 @@ void Plain::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>camera) {
     if(init == false || !covered()) {
         //获取相机位置信息
         init = true;
-        float minx, maxx, miny, maxy;
+        int minx, maxx, miny, maxy;
         range_x = mesh->GetImgSizeX();
         range_y = mesh->GetImgSizeY();
 
         getFieid(camera, minx, maxx, miny, maxy);
         std::cout << minx << " " << maxx << " " << miny << " " << maxy << std::endl;
         //获取mesh信息
-        auto data = mesh->getData(minx, maxx, miny, maxy);
+        auto data = mesh->getData(minx, miny, maxx, maxy);
         triangles_raw.clear();
         int idx = 0;
 
@@ -34,7 +34,7 @@ void Plain::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>camera) {
                     int idx = getIndex(minx,maxx,miny,maxy,i+dir[k][0],j+dir[k][1]);
                     points[k].x() = i + dir[k][0];
                     points[k].y() = j + dir[k][1]; 
-                    points[k].z() = data[idx];
+                    points[k].z() = 1.f*data[idx]/ 10000000;
                 }
                 Triangle t1(points[0],points[1],points[2]);
                 Triangle t2(points[1],points[2],points[3]);

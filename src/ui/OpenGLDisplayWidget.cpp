@@ -86,6 +86,8 @@ void OpenGLDisplayWidget::paintGL() {
     if (scene == nullptr) {
         return;
     }
+    auto startTime = clock();
+    int meshCnt = 0;
     setMVPMatrix();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (auto &elem: scene->getElements()) {
@@ -96,12 +98,14 @@ void OpenGLDisplayWidget::paintGL() {
             glColor3f(fabs(normal[0]), fabs(normal[1]), fabs(normal[2]));
             auto vertices = triangle.getVertices();
             for (auto &vertex: *vertices) {
-                std::cout << "Draw Point:" << vertex[0] << " " << vertex[1] << " " << vertex[2] << std::endl;
+                meshCnt++;
                 glVertex3f(vertex[0], vertex[1], vertex[2]);
             }
             glEnd();
         }
     }
+    std::cout << "Draw " << meshCnt << " Mesh" << std::endl;
+    std::cout << "Draw a frame using:" << clock() - startTime<<" ms" << std::endl;
 }
 
 OpenGLDisplayWidget::OpenGLDisplayWidget(QWidget *parent) :
@@ -112,6 +116,10 @@ OpenGLDisplayWidget::OpenGLDisplayWidget(QWidget *parent) :
 
 void OpenGLDisplayWidget::CameraParser::onCameraUpdate(std::shared_ptr<Camera> camera) {
     displayWidget->update();
+    for (int i = 0; i < CameraListener::listeners.size(); i++) {
+        std::cout << "call onCameraUpdate" << std::endl;
+        listeners[i]->onCameraUpdate(camera);
+    }
 }
 
 void OpenGLDisplayWidget::mousePressEvent(QMouseEvent *) {

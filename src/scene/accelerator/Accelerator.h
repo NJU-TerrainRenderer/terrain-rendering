@@ -11,9 +11,9 @@ class Mesh;
 
 class Camera;
 
-class Accelerator: public CameraListener {
+class Accelerator {
 protected:
-    void getFieid(std::shared_ptr<Camera> camera, float& xmin, float& xmax, float& ymin, float& ymax);
+    void getFieid(std::shared_ptr<Camera> camera, int& xmin, int& xmax, int& ymin, int& ymax);
     vector<Triangle> triangles_raw;
     int x1, x2, y1, y2;//表示当前三角形的范围
     vector<Triangle> simplifiedMesh;

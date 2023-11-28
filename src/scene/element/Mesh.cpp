@@ -24,7 +24,7 @@ void Mesh::meshInit(std::string path) {
 	ImgSizeY = poDataset->GetRasterYSize();
 }
 
-Mesh::Mesh(char* path) {
+Mesh::Mesh(char* path): CameraListener(true) {
 	MeshPath = path;
 	GDALAllRegister();
 	GDALDataset* poDataset;
@@ -97,8 +97,8 @@ vector<int> Mesh::getData(int x1, int y1, int x2, int y2) const{
 	for (int i = x1; i <= x2; i++) {
 		for (int j = y1; j <= y2; j++) {
 			num_image_size++;
-			cout << pafScanline[i * nImgSizeY + j] << " ";
-			cout << num_image_size << endl;
+			//cout << pafScanline[i * nImgSizeY + j] << " ";
+			//cout << num_image_size << endl;
 
 			double gx = startx + dx * i;
 			double gy = starty + dy * j;

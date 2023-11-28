@@ -6,12 +6,12 @@
 
 typedef int BYTE;
 
-class Mesh : public Element {
+class Mesh : public Element , public CameraListener {
 	//std::vector<Triangle>triangles;
 	std::shared_ptr<Accelerator> accelerator;
 public:
 	Mesh(char* path);
-	Mesh() {};
+	Mesh() :CameraListener(true){};
 	int GetImgSizeX() const;
 	int GetImgSizeY() const;
 	vector<int> getData(int x1, int y1, int x2, int y2) const;//这个改成加速结构获取数据

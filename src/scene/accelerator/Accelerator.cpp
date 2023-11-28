@@ -3,7 +3,7 @@
 //获取相机和z=0平面的交点
 void Accelerator::getFieid(
     std::shared_ptr<Camera> camera, 
-    float& xmin, float& xmax, float& ymin, float& ymax) 
+    int& xmin, int& xmax, int& ymin, int& ymax)
 {
     auto position = camera->getPosition();
     auto z = position[2];
@@ -23,10 +23,10 @@ void Accelerator::getFieid(
     xmin = position[0]-100, xmax = position[0]+100;
     ymin = position[1]-100, ymax = position[1]+100;
     //最小值不能小于0
-    xmin = std::max(xmin, 0.0f);
-    ymin = std::max(ymin, 0.0f);
-    xmax = std::min(1.0f * range_x, xmax);
-    ymax = std::min(1.0f * range_y, ymax);
+    xmin = std::max(xmin, 0);
+    ymin = std::max(ymin, 0);
+    xmax = std::min(range_x, xmax);
+    ymax = std::min(range_y, ymax);
 
     //预估相机视野范围，计算相机视线和z=0平面的交点
     //Step1，计算相机坐标系的旋转矩阵
