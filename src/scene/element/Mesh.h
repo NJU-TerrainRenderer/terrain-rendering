@@ -25,7 +25,7 @@ public:
 	}//加速结构从这里获取数据
 
 	void deserializeFrom(Json json) override;
-	void Mesh::meshInit(std::string);
+	void meshInit(std::string);
 	//TODO()
 
 	//Mesh(std::vector<Triangle>triangles);

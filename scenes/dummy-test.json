@@ -34,5 +34,15 @@
                 ]
             ]
         }
+        .
+        {
+            "type": "mesh".
+            "accelerator": {
+                ...
+            }
+            "path": "xxxx.tff"
+            
+        }
     ]
+
 }

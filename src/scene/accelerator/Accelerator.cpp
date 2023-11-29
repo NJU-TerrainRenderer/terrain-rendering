@@ -1,5 +1,9 @@
 #include"Accelerator.h"
 
+#ifndef FLT_EPSILON
+#define FLT_EPSILON 1.192092896e-07F
+#endif 
+
 //获取相机和z=0平面的交点
 void Accelerator::getFieid(
     std::shared_ptr<Camera> camera, 
