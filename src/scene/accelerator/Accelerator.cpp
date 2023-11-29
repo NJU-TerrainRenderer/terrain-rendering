@@ -24,8 +24,9 @@ void Accelerator::getFieid(
     auto aspect = width / height;    
 
     //设置最远范围，防止相机几乎平行于平面时，视线和平面范围太广
-    xmin = position[0]-100, xmax = position[0]+100;
-    ymin = position[1]-100, ymax = position[1]+100;
+#define MAX_RANGE 50
+    xmin = position[0]- MAX_RANGE, xmax = position[0]+ MAX_RANGE;
+    ymin = position[1]- MAX_RANGE, ymax = position[1]+ MAX_RANGE;
     //最小值不能小于0
     xmin = std::max(xmin, 0);
     ymin = std::max(ymin, 0);

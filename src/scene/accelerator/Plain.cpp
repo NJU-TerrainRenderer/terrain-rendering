@@ -1,6 +1,9 @@
 #include "Plain.h"
 #include "../element/Mesh.h"
 
+
+#define SCALE_RATIO 1000000
+
 static int getIndex(int minx,int maxx,int miny,int maxy, int curx, int cury) {
     int y = cury - miny;
     int x = curx - minx;
@@ -24,8 +27,13 @@ void Plain::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>camera) {
         auto data = mesh->getData(minx, miny, maxx, maxy);
         triangles_raw.clear();
         int idx = 0;
+        float minz = 1e9;
+        for (int i = 0; i < data.size(); i++) {
+            minz = std::min(minz, 1.f*data[i] / SCALE_RATIO);
+        }
 
         for (int i = minx;i < maxx; i++) { 
+
             for (int j = miny; j < maxy; j++) {
                 
                 Eigen::Vector4f points[4];
@@ -34,7 +42,7 @@ void Plain::onCameraUpdate(const Mesh* mesh,std::shared_ptr<Camera>camera) {
                     int idx = getIndex(minx,maxx,miny,maxy,i+dir[k][0],j+dir[k][1]);
                     points[k].x() = i + dir[k][0];
                     points[k].y() = j + dir[k][1]; 
-                    points[k].z() = 1.f*data[idx]/ 10000000;
+                    points[k].z() = (1.f*data[idx]/ SCALE_RATIO)-minz;
                 }
                 Triangle t1(points[0],points[1],points[2]);
                 Triangle t2(points[1],points[2],points[3]);
