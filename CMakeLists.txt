@@ -37,7 +37,7 @@ set_target_properties(dll PROPERTIES
     IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/gdal204.dll 
 )
 
-
+file(COPY "gdal204.dll" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 file(GLOB ALLFILE
         "src/*.cpp" "src/*.h"

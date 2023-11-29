@@ -109,7 +109,7 @@ vector<int> Mesh::getData(int x1, int y1, int x2, int y2) const{
 		}
 	}
 
-	//生成三角网格
+	//生成三角网格mmmmmmmm
 	//TIN dsm(points.points().begin(), points.points().end());
 	//输出三角网格的顶点数目
 	//cout << dsm.number_of_vertices() << endl;

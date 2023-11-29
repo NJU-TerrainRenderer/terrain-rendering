@@ -59,7 +59,7 @@ void Accelerator::getFieid(
     for(int i = 0; i < 4; i++) {
         auto dir = directions[i];
         //平行
-        if((dir[2]) < FLT_EPSILON) continue;
+        if(abs(dir[2]) < FLT_EPSILON) continue;
         //方向相反
         if(dir[2] * z > 0) continue;
         auto t = -z / dir[2];
