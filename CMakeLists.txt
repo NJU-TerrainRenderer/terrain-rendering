@@ -28,6 +28,17 @@ INCLUDE_DIRECTORIES(${GDAL_DIR})
 
 INCLUDE_DIRECTORIES(src)
 
+#添加库文件
+add_library(dll SHARED IMPORTED GLOBAL)
+set_target_properties(dll PROPERTIES
+    # 指向lib，windows必须设置此项
+    IMPORTED_IMPLIB ${CMAKE_CURRENT_LIST_DIR}/dependencies/warmerda/bld/lib/gdal_i.lib
+    # 指向dll、so等
+    IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/gdal204.dll 
+)
+
+
+
 file(GLOB ALLFILE
         "src/*.cpp" "src/*.h"
         "src/ui/*.cpp" "src/ui/*.h"
@@ -44,6 +55,9 @@ target_link_libraries(terrain_rendering
         Qt5::Gui
         Qt5::Widgets
         OpenGL::GL)
+
+target_link_libraries(terrain_rendering dll)
+
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
