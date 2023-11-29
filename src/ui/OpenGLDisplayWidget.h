@@ -26,6 +26,9 @@ private:
 
     std::shared_ptr<CameraParser> cameraParser;
 
+    int lastMouseX = 0;
+    int lastMouseY = 0;
+
 protected:
     void initializeGL() override;
 
@@ -34,6 +37,8 @@ protected:
     void paintGL() override;
 
     void mousePressEvent(QMouseEvent *) override;
+
+    void mouseMoveEvent(QMouseEvent *) override;
 
     void keyPressEvent(QKeyEvent *) override;
 
@@ -44,6 +49,7 @@ public:
     void setScene(std::shared_ptr<Scene> &newScene);
 
     void setMVPMatrix();
+
 };
 
 

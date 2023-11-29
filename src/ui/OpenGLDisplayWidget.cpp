@@ -122,12 +122,33 @@ void OpenGLDisplayWidget::CameraParser::onCameraUpdate(std::shared_ptr<Camera> c
     }
 }
 
-void OpenGLDisplayWidget::mousePressEvent(QMouseEvent *) {
+void OpenGLDisplayWidget::mousePressEvent(QMouseEvent *e) {
     if (!scene) {
         return;
     }
+    if (!(e->buttons() & Qt::LeftButton)) {
+        return;
+    }
 
-    std::cout << "hello";
+    lastMouseX = e->x();
+    lastMouseY = e->y();
+}
+
+void OpenGLDisplayWidget::mouseMoveEvent(QMouseEvent *e) {
+    if (!scene) {
+        return;
+    }
+    if (!(e->buttons() & Qt::LeftButton)) {
+        return;
+    }
+
+    int movedX = e->x() - lastMouseX;
+    int movedY = e->y() - lastMouseY;
+    scene->getCamera()->rotatePrecession(-movedX * M_PI / this->width());
+    scene->getCamera()->rotateNutation(-movedY * M_PI / (2 * this->height()));
+
+    lastMouseX = e->x();
+    lastMouseY = e->y();
 }
 
 void OpenGLDisplayWidget::keyPressEvent(QKeyEvent *e) {
