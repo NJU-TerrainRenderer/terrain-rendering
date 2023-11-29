@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_PREFIX_PATH $ENV{QT_PATH})
 set(Eigen3_DIR "./dependencies/Eigen3.4.0/share/eigen3/cmake")
-set(GDAL_DIR "./dependencies/warmerda/bld")
+set(GDAL_DIR "./dependencies/warmerda/bld/include")
 set(JSON_DIR "./dependencies/JSON")
 
 find_package(Qt5 COMPONENTS
@@ -23,6 +23,8 @@ find_package(OpenGL REQUIRED)
 INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
 
 INCLUDE_DIRECTORIES(${JSON_DIR})
+
+INCLUDE_DIRECTORIES(${GDAL_DIR})
 
 INCLUDE_DIRECTORIES(src)
 
