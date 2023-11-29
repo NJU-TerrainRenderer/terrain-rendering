@@ -8,7 +8,7 @@
 Camera::Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov)
         : Movable(position, direction),
           fov(fov) {
-    if (direction[2] != 1)
+    if (abs(direction[2]) != 1)
         right = {direction[1], -direction[0], 0, 0};
     else
         right = {1, 0, 0, 0};
