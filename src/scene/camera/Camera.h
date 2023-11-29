@@ -19,6 +19,8 @@ protected:
 
     float speed = 1;
 
+    Eigen::Vector4f right;
+
     std::vector<std::shared_ptr<CameraListener>> listeners;
 
     void notifyListeners();

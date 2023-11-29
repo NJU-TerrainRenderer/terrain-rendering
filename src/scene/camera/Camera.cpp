@@ -3,10 +3,16 @@
 //
 
 #include "Camera.h"
+#include <iostream>
 
 Camera::Camera(const Eigen::Vector4f &position, const Eigen::Vector4f &direction, float fov)
         : Movable(position, direction),
-          fov(fov) {}
+          fov(fov) {
+    if (direction[2] != 1)
+        right = {direction[1], -direction[0], 0, 0};
+    else
+        right = {1, 0, 0, 0};
+}
 
 void Camera::registerListener(const std::shared_ptr<CameraListener> &listener) {
     listeners.push_back(listener);
@@ -37,8 +43,7 @@ std::shared_ptr<Camera> Camera::deserialize(Json json) {
 }
 
 Eigen::Vector4f Camera::rightDirection() {
-    Eigen::Vector4f right = {direction[1], -direction[0], 0, 0};
-    return right.normalized();
+    return right;
 }
 
 Eigen::Vector4f Camera::getCameraDirection() {
@@ -52,6 +57,8 @@ void Camera::rotatePrecession(float radius) {
             0, 0, 1, 0,
             0, 0, 0, 1;
     direction = (rotation * direction).normalized();
+    right = (rotation * right).normalized();
+//    std::cout << right[0] << ' '<< right[1] << ' '<< right[2] << ' ' << std::endl;
     notifyListeners();
 }
 
@@ -68,7 +75,8 @@ void Camera::rotateNutation(float radius) {
         return;
     }
 
-    direction << cosf(afterNutationRadius) * direction[0] / r, cosf(afterNutationRadius) * direction[1] / r,
+    auto xyHelper = Eigen::Vector3f(0, 0, 1).cross(right.head<3>());
+    direction << cosf(afterNutationRadius) * xyHelper[0], cosf(afterNutationRadius) * xyHelper[1],
             sinf(afterNutationRadius), 0;
     direction = direction.normalized();
     notifyListeners();
