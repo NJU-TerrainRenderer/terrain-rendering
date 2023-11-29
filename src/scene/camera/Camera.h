@@ -54,8 +54,10 @@ public:
 
     void moveHigher(float distance);
 
+    // 进动
     void rotatePrecession(float radius);
 
+    // 章动
     void rotateNutation(float radius);
 
     Eigen::Matrix4f toCameraMatrix();
