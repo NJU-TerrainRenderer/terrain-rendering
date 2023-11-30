@@ -88,13 +88,30 @@ void OpenGLDisplayWidget::paintGL() {
     }
     setMVPMatrix();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if(scene->getTriangleMode() == TRIANGLE_LINES) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }else {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+    float minZ = 1e9, maxZ = -1e9;
+    for (auto &elem: scene->getElements()) {
+        auto mesh = elem->getMesh();
+        for (auto &triangle: *mesh) {
+            for(auto &vertex: *(triangle.getVertices())) {
+                minZ = std::min(minZ, vertex[2]);
+                maxZ = std::max(maxZ, vertex[2]);
+            }
+        }
+    }
     for (auto &elem: scene->getElements()) {
         auto mesh = elem->getMesh();
         for (auto &triangle: *mesh) {
             glBegin(GL_TRIANGLES);
             auto normal = triangle.getNormal();
-            glColor3f(fabs(normal[0]), fabs(normal[1]), fabs(normal[2]));
             for (auto &vertex: *(triangle.getVertices())) {
+                float height = 0.5+0.5*(vertex[2] - minZ) / (maxZ - minZ);
+                auto color = height * Eigen::Vector3f(fabs(normal[0]), fabs(normal[1]), fabs(normal[2]));
+                glColor3f(color[0], color[1], color[2]);
                 glVertex3f(vertex[0], vertex[1], vertex[2]);
             }
             glEnd();
@@ -178,5 +195,7 @@ void OpenGLDisplayWidget::keyPressEvent(QKeyEvent *e) {
         case Qt::Key_Right:
             scene->getCamera()->rotatePrecession(-0.01);
             break;
+        case Qt::Key_X:
+            scene->changeTriangleMode();
     }
 }
