@@ -127,7 +127,8 @@ void Mesh::deserializeFrom(Json json) {
 		assert(accelerator != nullptr);
 	}
 	else if (acceleratorType == "LOD") {
-		
+		std::shared_ptr<LOD> lodPtr = std::make_shared<LOD>();
+		accelerator = std::dynamic_pointer_cast<Accelerator>(lodPtr);
 	} else{
 		std::shared_ptr<Plain> plainPtr = std::make_shared<Plain>();
 		accelerator = std::dynamic_pointer_cast<Accelerator>(plainPtr);

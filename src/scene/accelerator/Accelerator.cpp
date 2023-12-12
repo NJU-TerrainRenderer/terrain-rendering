@@ -3,18 +3,20 @@
 #ifndef FLT_EPSILON
 #define FLT_EPSILON 1.192092896e-07F
 #endif 
+#define MAX_RANGE 60
+#define MIN_RANGE 20
 
 //获取相机和z=0平面的交点
-void Accelerator::getFieid(
+void Accelerator::getField(
     std::shared_ptr<Camera> camera, 
     int& xmin, int& xmax, int& ymin, int& ymax)
 {
     auto position = camera->getPosition();
     auto z = position[2];
-
+    std::cout << "Camera Position:" << position << std::endl;
     auto forward = camera->getDirection();
     auto right = camera->rightDirection();
-
+    std::cout << "Camera Direction:" << forward << std::endl;
     //获取相机视野信息
     auto fov = camera->getFov(); //弧度制
     auto width = camera->getWidth();
@@ -24,14 +26,11 @@ void Accelerator::getFieid(
     auto aspect = width / height;    
 
     //设置最远范围，防止相机几乎平行于平面时，视线和平面范围太广
-#define MAX_RANGE 50
-    xmin = position[0]- MAX_RANGE, xmax = position[0]+ MAX_RANGE;
-    ymin = position[1]- MAX_RANGE, ymax = position[1]+ MAX_RANGE;
+    int x1, x2, y1, y2;
+    x1 = position[0]- MAX_RANGE, x2 = position[0]+ MAX_RANGE;
+    y1 = position[1]- MAX_RANGE, y2 = position[1]+ MAX_RANGE;
     //最小值不能小于0
-    xmin = std::max(xmin, 0);
-    ymin = std::max(ymin, 0);
-    xmax = std::min(range_x, xmax);
-    ymax = std::min(range_y, ymax);
+
 
     //预估相机视野范围，计算相机视线和z=0平面的交点
     //Step1，计算相机坐标系的旋转矩阵
@@ -66,6 +65,10 @@ void Accelerator::getFieid(
         points.push_back(position + t * dir);
     }
     //Step5，计算四条射线和z=0平面的交点的x和y的最大最小值,特判一下每个点是否有效
+    xmin = range_x;
+    xmax = 0;
+    ymin = range_y;
+    ymax = 0;
     for(int i = 0; i < points.size(); i++) {
         auto point = points[i];
         if(point[0] < xmin) xmin = point[0];
@@ -73,4 +76,30 @@ void Accelerator::getFieid(
         if(point[1] < ymin) ymin = point[1];
         if(point[1] > ymax) ymax = point[1];
     }
+    xmin = std::max(xmin, 0);
+    ymin = std::max(ymin, 0);
+    xmax = std::min(range_x, xmax);
+    ymax = std::min(range_y, ymax);
+    xmin = std::max(xmin, x1);
+    xmax = std::min(xmax, x2);
+    ymin = std::max(ymin, y1);
+    ymax = std::min(ymax, y2);
+    x1 = position[0] - MIN_RANGE, x2 = position[0] + MIN_RANGE;
+    y1 = position[1] - MIN_RANGE, y2 = position[1] + MIN_RANGE;
+    xmin = std::min(xmin, x1);
+    ymin = std::min(ymin, y1);
+    xmax = std::max(xmax, x2);
+    ymax = std::max(ymax, y2);
+    xmin = std::max(xmin, 0);
+    ymin = std::max(ymin, 0);
+    xmax = std::min(range_x, xmax);
+    ymax = std::min(range_y, ymax);
+}
+
+bool Accelerator::covered(std::shared_ptr<Camera> camera) {
+    int tmpxmin, tmpxmax, tmpymin, tmpymax;
+    getField(camera, tmpxmin, tmpxmax, tmpymin, tmpymax);
+    if (tmpxmin >= x1 && tmpxmax <= x2 &&
+        tmpymin >= y1 && tmpymax <= y2) return true;
+    return false;
 }

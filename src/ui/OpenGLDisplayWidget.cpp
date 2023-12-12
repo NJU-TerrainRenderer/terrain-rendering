@@ -93,12 +93,17 @@ void OpenGLDisplayWidget::paintGL() {
     for (auto &elem: scene->getElements()) {
         auto mesh = elem->getMesh();
         for (auto &triangle: *mesh) {
+            meshCnt++;
             glBegin(GL_TRIANGLES);
+            //随机生成颜色
+            auto vertices = *triangle.getVertices();
+            srand(vertices[0][2]*1000000);
+            float r = .01f * (rand() % 100);
+            float g = .01f * (rand() % 100);
+            float b = .01f * (rand() % 100);
             auto normal = triangle.getNormal();
-            glColor3f(fabs(normal[0]), fabs(normal[1]), fabs(normal[2]));
-            auto vertices = triangle.getVertices();
-            for (auto &vertex: *vertices) {
-                meshCnt++;
+            glColor3f(r,g,b);
+            for (auto &vertex: vertices) {
                 glVertex3f(vertex[0], vertex[1], vertex[2]);
             }
             glEnd();
@@ -138,34 +143,34 @@ void OpenGLDisplayWidget::keyPressEvent(QKeyEvent *e) {
     switch (e->key()) {
         // WASD for changing friendly direction
         case Qt::Key_D:
-            scene->getCamera()->moveRight(0.1);
+            scene->getCamera()->moveRight(0.5);
             break;
         case Qt::Key_A:
-            scene->getCamera()->moveRight(-0.05);
+            scene->getCamera()->moveRight(-0.5);
             break;
         case Qt::Key_W:
-            scene->getCamera()->moveForward(0.05);
+            scene->getCamera()->moveForward(0.5);
             break;
         case Qt::Key_S:
-            scene->getCamera()->moveForward(-0.1);
+            scene->getCamera()->moveForward(-0.5);
             break;
         case Qt::Key_R:
-            scene->getCamera()->moveHigher(0.1);
+            scene->getCamera()->moveHigher(0.5);
             break;
         case Qt::Key_F:
-            scene->getCamera()->moveHigher(-0.1);
+            scene->getCamera()->moveHigher(-0.5);
             break;
         case Qt::Key_Up:
-            scene->getCamera()->rotateNutation(0.01);
+            scene->getCamera()->rotateNutation(0.1);
             break;
         case Qt::Key_Down:
-            scene->getCamera()->rotateNutation(-0.01);
+            scene->getCamera()->rotateNutation(-0.1);
             break;
         case Qt::Key_Left:
-            scene->getCamera()->rotatePrecession(0.01);
+            scene->getCamera()->rotatePrecession(0.1);
             break;
         case Qt::Key_Right:
-            scene->getCamera()->rotatePrecession(-0.01);
+            scene->getCamera()->rotatePrecession(-0.1);
             break;
     }
 }

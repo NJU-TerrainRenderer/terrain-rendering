@@ -16,7 +16,7 @@ public:
     Triangle() = default;
 
     // 三角形方向为参数三点右手螺旋生成的法向
-    Triangle(Eigen::Vector4f &point1, Eigen::Vector4f &point2, Eigen::Vector4f &point3);
+    Triangle(const Eigen::Vector4f &point1,const Eigen::Vector4f &point2,const Eigen::Vector4f &point3);
 
     Eigen::Vector3f getNormal(){
         return direction.head<3>().normalized();

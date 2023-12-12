@@ -4,7 +4,7 @@
 
 #include "Triangle.h"
 
-Triangle::Triangle(Eigen::Vector4f &point1, Eigen::Vector4f &point2, Eigen::Vector4f &point3) {
+Triangle::Triangle(const Eigen::Vector4f &point1, const Eigen::Vector4f &point2,const Eigen::Vector4f &point3) {
     position = point1;
 
     vertexDisplacements.emplace_back(point1 - position);
